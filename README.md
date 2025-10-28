@@ -8,6 +8,8 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](./LICENSE)
 [![Live Demo](https://img.shields.io/badge/demo-online-blue.svg?style=for-the-badge)](https://kl4rkx.github.io/free-iptv-player)
 
+**Read this in other languages:** [🇪🇸 Español](./README.es.md)
+
 [🌐 **Live Demo**](https://kl4rkx.github.io/free-iptv-player) • [📖 **Documentation**](./docs/) • [🐛 **Report Bug**](https://github.com/Kl4rkx/free-iptv-player/issues)
 
 </div>

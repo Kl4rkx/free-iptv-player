@@ -40,6 +40,12 @@ class StreamingApp {
         this.expandedCategories = new Set();
         this.categorizedChannels = null;
 
+        // Mostrar mensaje si no hay canales cargados
+        if (this.channels.length === 0) {
+            console.warn('⚠️ No channels loaded from canales.js - showing welcome message');
+            this.showWelcomeMessage();
+        }
+
         // Inicializar componentes
         this.player = new VideoPlayer(
             document.getElementById('videoPlayer'),
@@ -428,7 +434,8 @@ class StreamingApp {
 
     mergeChannels(loadedChannels) {
         // Combinar canales originales con los cargados dinámicamente
-        const allChannels = [...CANALES_STREAMING, ...loadedChannels];
+        const originalChannels = typeof CANALES_STREAMING !== 'undefined' ? CANALES_STREAMING : [];
+        const allChannels = [...originalChannels, ...loadedChannels];
         
         // Eliminar duplicados por nombre y URL
         const uniqueChannels = allChannels.reduce((acc, channel) => {
@@ -464,6 +471,65 @@ class StreamingApp {
                     });
             });
         }
+    }
+
+    showWelcomeMessage() {
+        const channelContainer = document.getElementById('channelContainer');
+        channelContainer.innerHTML = `
+            <div style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 60vh;
+                text-align: center;
+                padding: 2rem;
+                gap: 2rem;
+            ">
+                <div style="font-size: 4rem;">🎬</div>
+                <h2 style="font-size: 2rem; margin: 0; color: var(--text-color);">
+                    Welcome to Free IPTV Player
+                </h2>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0;">
+                    No channels loaded. Load your M3U/M3U8 playlist to get started!
+                </p>
+                <button 
+                    onclick="openPlaylistModal()" 
+                    style="
+                        padding: 1rem 2rem;
+                        font-size: 1.1rem;
+                        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                        color: white;
+                        border: none;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        font-weight: 700;
+                        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                        transition: all 0.3s ease;
+                    "
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'"
+                >
+                    📥 Load Playlist
+                </button>
+                <div style="margin-top: 2rem;">
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                        <strong>Supported formats:</strong>
+                    </p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                        <span style="background: rgba(102, 126, 234, 0.2); padding: 0.5rem 1rem; border-radius: 8px;">
+                            📄 M3U
+                        </span>
+                        <span style="background: rgba(118, 75, 162, 0.2); padding: 0.5rem 1rem; border-radius: 8px;">
+                            📄 M3U8
+                        </span>
+                        <span style="background: rgba(102, 126, 234, 0.2); padding: 0.5rem 1rem; border-radius: 8px;">
+                            🌐 HLS
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 }
 
