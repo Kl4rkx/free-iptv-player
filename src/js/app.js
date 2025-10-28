@@ -366,7 +366,8 @@ class StreamingApp {
             document.getElementById('urlInput').value = '';
             setTimeout(() => this.closePlaylistModal(), 2000);
         } catch (error) {
-            this.showStatus('urlStatus', `❌ Error: ${error.message}. Verifica que la URL sea correcta y permita CORS`, 'error');
+            console.error('Error loading from URL:', error);
+            this.showStatus('urlStatus', `❌ Error: ${error.message}`, 'error');
         }
     }
 

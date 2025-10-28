@@ -24,14 +24,24 @@ export class PlaylistLoader {
             });
 
             if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
             const content = await response.text();
+            
+            if (!content || content.trim().length === 0) {
+                throw new Error('La URL devolvió contenido vacío');
+            }
+
+            // Validar que sea un archivo M3U/M3U8 válido
+            if (!M3UParser.isValid(content)) {
+                throw new Error('El archivo no tiene un formato M3U/M3U8 válido');
+            }
+
             const newChannels = M3UParser.parse(content, defaultCategory);
 
             if (newChannels.length === 0) {
-                throw new Error('No se encontraron canales en la lista');
+                throw new Error('No se encontraron canales válidos en la lista M3U/M3U8');
             }
 
             this.loadedChannels.push(...newChannels);
@@ -40,6 +50,12 @@ export class PlaylistLoader {
             return { success: true, count: newChannels.length };
         } catch (error) {
             console.error('Error al cargar desde URL:', error);
+            
+            // Mensajes de error más específicos
+            if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                throw new Error('No se pudo conectar con la URL. Verifica que sea accesible y permita CORS');
+            }
+            
             throw error;
         }
     }
