@@ -1,30 +1,54 @@
 # 🎬 Free IPTV Player
 
-> Stream 11,815+ live TV channels - No ads, no subscriptions, 100% free
+> Modern HLS/M3U8 streaming player - 100% legal demo with educational purpose
 
 <div align="center">
 
 [![GitHub Stars](https://img.shields.io/github/stars/Kl4rkx/free-iptv-player?style=for-the-badge)](https://github.com/Kl4rkx/free-iptv-player/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](./LICENSE)
 [![Live Demo](https://img.shields.io/badge/demo-online-blue.svg?style=for-the-badge)](https://kl4rkx.github.io/free-iptv-player)
+[![Legal](https://img.shields.io/badge/100%25-LEGAL-brightgreen.svg?style=for-the-badge)](./data/README-LEGAL.md)
 
 **Read this in other languages:** [🇪🇸 Español](./README.es.md)
 
-[🌐 **Live Demo**](https://kl4rkx.github.io/free-iptv-player) • [📖 **Documentation**](./docs/) • [🐛 **Report Bug**](https://github.com/Kl4rkx/free-iptv-player/issues)
+[🌐 **Live Demo**](https://kl4rkx.github.io/free-iptv-player) • [📖 **Documentation**](./docs/) • [⚖️ **Legal Info**](./data/README-LEGAL.md) • [🐛 **Report Bug**](https://github.com/Kl4rkx/free-iptv-player/issues)
 
 </div>
 
+## ⚠️ Legal Disclaimer
+
+**This project is for educational and demonstration purposes only.**
+
+- ✅ Demo includes **only legal, public domain content**
+- ✅ No pirated streams or copyrighted material
+- ✅ Compliant with Spanish and EU laws
+- ❌ We do **NOT** promote or support piracy
+- ❌ Users are responsible for their content sources
+
+[📖 Read Full Legal Disclaimer](./data/README-LEGAL.md)
+
 ## ✨ Features
 
-- 🎥 **11,815+ Live Channels** - Sports, movies, series, news, documentaries
+- 🎥 **HLS/M3U8 Player** - Modern streaming technology
 - 🌍 **Multiple Sources** - Load from URL, local files, or repository
 - 📱 **Fully Responsive** - Works on desktop, tablet, and mobile
 - 🔍 **Instant Search** - Real-time channel filtering
 - 🎨 **Modern UI** - Dark theme with glassmorphism effects
 - 🌐 **Bilingual** - English and Spanish support
-- 🔒 **Parental Controls** - PIN-protected adult content
+- 🔒 **Parental Controls** - PIN-protected categories
 - ⚡ **PWA Ready** - Install on any device, offline support
 - 🚫 **No Ads** - Clean, fast experience
+- 🧪 **Demo Channels** - Legal test streams included
+
+## 🎬 Demo Content
+
+The live demo includes **100% legal channels**:
+- 🐰 Blender Open Movies (Creative Commons)
+- 🚀 NASA TV (Public Domain)
+- 🧪 HLS Test Streams (Public)
+- 📊 Technical Test Patterns
+
+All demo content is legally available and properly licensed.
 
 ## 🚀 Quick Start
 

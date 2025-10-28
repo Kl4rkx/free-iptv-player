@@ -1,8 +1,11 @@
-# Archivos de canales (datos sensibles)
+# Archivos de canales personales (datos sensibles - NO SUBIR)
 data/canales.js
 data/canales.m3u
 data/*.m3u
 data/*.m3u8
+
+# PERMITIR: Archivo de demostración (contenido legal)
+!data/canales-demo.js
 
 # Playlist M3U8 generada (opcional: comentar si quieres subirla)
 # data/canales-tv.m3u8
