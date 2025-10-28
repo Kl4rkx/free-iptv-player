@@ -253,11 +253,12 @@ h1 {
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 #loadingPage.hidden {
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
 }
 

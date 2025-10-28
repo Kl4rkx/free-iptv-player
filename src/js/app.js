@@ -72,13 +72,21 @@ class StreamingApp {
         // Event Listeners
         this.setupEventListeners();
         
-        // Ocultar loading screen
-        setTimeout(() => {
-            document.getElementById('loadingPage').classList.add('hidden');
-        }, 500);
+        // Ocultar loading screen - asegurar que siempre se oculte
+        this.hideLoadingScreen();
 
         // Service Worker
         this.registerServiceWorker();
+    }
+
+    hideLoadingScreen() {
+        const loadingPage = document.getElementById('loadingPage');
+        if (loadingPage) {
+            setTimeout(() => {
+                loadingPage.classList.add('hidden');
+                console.log('✅ Loading screen hidden');
+            }, 500);
+        }
     }
 
     setupEventListeners() {
