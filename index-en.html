@@ -39,190 +39,302 @@
     
     <title>M3U8 Streaming Platform</title>
     
-    <!-- Stylesheets -->
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0057FF',
+                        dark: '#0A0A0A',
+                        light: '#F8F9FA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="./src/css/styles.css">
     <link rel="stylesheet" href="./src/css/modal.css">
 </head>
-<body>
+<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white min-h-screen">
     <!-- Loading Screen -->
-    <div id="loadingPage">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading channels...</div>
+    <div id="loadingPage" class="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col justify-center items-center z-[10000] transition-all duration-500">
+        <div class="loading-spinner w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full"></div>
+        <div class="loading-text text-white text-2xl mt-6 font-medium">Loading channels...</div>
     </div>
 
     <!-- Main Container -->
-    <div class="container">
-        <header>
-            <h1>📺 Streaming Channels</h1>
-            
-            <!-- Language Switcher -->
-            <div style="position: absolute; top: 10px; left: 10px;">
-                <a href="./index.html" style="color: white; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.2); border-radius: 5px; font-size: 14px;">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 lg:py-12">
+        <!-- Header -->
+        <header class="mb-12 lg:mb-16">
+            <!-- Top Bar with Language Switcher and Parental Control -->
+            <div class="relative flex justify-between items-start mb-8 min-h-[48px]">
+                <!-- Language Switcher (left) -->
+                <a href="./index.html" 
+                   class="inline-flex items-center gap-2 text-white no-underline px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg text-sm font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105 z-20">
                     🇪🇸 Español
                 </a>
+                
+                <!-- Parental Control Button (right) -->
+                <button id="parentalBtn" 
+                        onclick="toggleControlParental()" 
+                        title="Parental Control" 
+                        aria-label="Parental Control"
+                        class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg cursor-pointer text-xl transition-all duration-300 hover:bg-white/20 hover:scale-105 min-w-[44px] min-h-[44px] z-20">
+                    🔒
+                </button>
             </div>
             
-            <!-- Parental Control Button -->
-            <button id="parentalBtn" onclick="toggleControlParental()" 
-                    title="Parental Control" aria-label="Parental Control">
-                🔒
-            </button>
+            <!-- Main Title (centered, below buttons) -->
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight px-4">
+                    <span class="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent inline-block py-2">
+                        📺 Streaming Channels
+                    </span>
+                </h1>
+            </div>
             
             <!-- Search Box -->
-            <div class="search-box">
-                <input type="text" id="searchInput" 
+            <div class="search-box mt-8 flex justify-center">
+                <input type="text" 
+                       id="searchInput" 
                        placeholder="🔍 Search channel..." 
                        autocomplete="off" 
                        autocorrect="off" 
                        autocapitalize="off" 
                        spellcheck="false"
-                       aria-label="Search channels">
+                       aria-label="Search channels"
+                       class="w-full max-w-2xl px-6 py-4 text-base border-none rounded-full outline-none shadow-lg bg-white text-gray-900 placeholder-gray-500 focus:ring-4 focus:ring-primary/30 transition-all duration-300">
             </div>
         </header>
 
         <!-- Controls Bar -->
-        <div class="controls-bar">
-            <button class="control-btn" onclick="expandAllCategories()" aria-label="Expand all categories">
+        <div class="controls-bar flex justify-center gap-4 mb-8 flex-wrap">
+            <button class="control-btn px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl cursor-pointer text-sm font-medium transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg" 
+                    onclick="expandAllCategories()" 
+                    aria-label="Expand all categories">
                 📂 Expand All
             </button>
-            <button class="control-btn" onclick="collapseAllCategories()" aria-label="Collapse all categories">
+            <button class="control-btn px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl cursor-pointer text-sm font-medium transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg" 
+                    onclick="collapseAllCategories()" 
+                    aria-label="Collapse all categories">
                 📁 Collapse All
             </button>
-            <button class="control-btn" onclick="openPlaylistModal()" aria-label="Load M3U playlist">
+            <button class="control-btn px-6 py-3 bg-primary hover:bg-blue-600 text-white rounded-xl cursor-pointer text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/50" 
+                    onclick="openPlaylistModal()" 
+                    aria-label="Load M3U playlist">
                 📥 Load M3U Playlist
             </button>
-            <span class="control-btn" style="cursor: default; font-size: 14px;" aria-label="Total channels">
+            <span class="control-btn px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl text-sm font-medium cursor-default" 
+                  aria-label="Total channels">
                 📊 <span id="totalChannels">0</span> channels
             </span>
         </div>
 
         <!-- Channels Container -->
-        <div id="channelsContainer"></div>
+        <div id="channelsContainer" class="space-y-6"></div>
         
         <!-- No Results Message -->
-        <div class="no-results" id="noResults">No channels found</div>
+        <div class="no-results text-center py-16 text-2xl font-medium hidden" id="noResults">
+            No channels found
+        </div>
         
-            <!-- Footer -->
-            <footer style="text-align: center; padding: 30px 20px; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.7;">
-                <p style="margin: 0; font-size: 14px;">
-                    Made with ❤️ by <a href="https://github.com/Kl4rkx" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none; font-weight: 600;">Kl4rkx</a>
-                </p>
-                <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">
-                    <a href="https://github.com/Kl4rkx/free-iptv-player" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Free IPTV Player</a> - 100% Legal & Open Source
-                </p>
-            </footer>
+        <!-- Footer -->
+        <footer class="text-center py-12 mt-16 border-t border-white/10 opacity-70">
+            <p class="text-base mb-2">
+                Made with ❤️ by 
+                <a href="https://github.com/Kl4rkx" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="text-primary no-underline font-semibold hover:text-blue-400 transition-colors duration-300">
+                    Kl4rkx
+                </a>
+            </p>
+            <p class="text-sm opacity-80 mt-2">
+                <a href="https://github.com/Kl4rkx/free-iptv-player" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="text-primary no-underline hover:text-blue-400 transition-colors duration-300">
+                    Free IPTV Player
+                </a> - 100% Legal & Open Source
+            </p>
+        </footer>
     </div>
 
     <!-- Video Player Modal -->
-    <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player">
-        <div class="video-container">
-            <button class="close-button" onclick="closeVideo()" aria-label="Close player">
+    <div class="video-modal hidden fixed inset-0 bg-black/95 z-[1000] items-center justify-center p-4" 
+         id="videoModal" 
+         role="dialog" 
+         aria-modal="true" 
+         aria-label="Video player">
+        <div class="video-container w-full max-w-6xl mx-auto relative">
+            <button class="close-button absolute -top-12 right-0 bg-red-500 hover:bg-red-600 text-white border-none px-6 py-3 rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 min-w-[44px] min-h-[44px]" 
+                    onclick="closeVideo()" 
+                    aria-label="Close player">
                 ✕ Close
             </button>
-            <div class="loading-indicator" id="loadingIndicator">⏳ Loading stream...</div>
+            <div class="loading-indicator absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xl hidden" 
+                 id="loadingIndicator">
+                ⏳ Loading stream...
+            </div>
             <video id="videoPlayer" 
                    controls 
                    autoplay 
                    playsinline 
                    webkit-playsinline 
                    x5-playsinline
-                   aria-label="Video player"></video>
+                   aria-label="Video player"
+                   class="w-full max-h-[80vh] rounded-xl bg-black shadow-2xl"></video>
         </div>
     </div>
 
     <!-- Playlist Loader Modal -->
-    <div class="playlist-modal" id="playlistModal" role="dialog" aria-modal="true" aria-label="Load channel playlist">
-        <div class="playlist-content">
-            <div class="playlist-header">
-                <h2>📥 Load Channel Playlist</h2>
-                <button class="playlist-close" onclick="closePlaylistModal()" aria-label="Close modal">
+    <div class="playlist-modal hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[2000] items-center justify-center p-4" 
+         id="playlistModal" 
+         role="dialog" 
+         aria-modal="true" 
+         aria-label="Load channel playlist">
+        <div class="playlist-content bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
+            <div class="playlist-header flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold">📥 Load Channel Playlist</h2>
+                <button class="playlist-close bg-white/10 hover:bg-white/20 border-none text-white text-2xl cursor-pointer w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:rotate-90" 
+                        onclick="closePlaylistModal()" 
+                        aria-label="Close modal">
                     ✕
                 </button>
             </div>
 
             <!-- Tabs -->
-            <div class="tabs-container" role="tablist">
-                <button class="tab-btn active" onclick="switchTab('url')" role="tab" aria-selected="true">
+            <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2" role="tablist">
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                        onclick="switchTab('url')" 
+                        role="tab" 
+                        aria-selected="true">
                     🌐 From URL
                 </button>
-                <button class="tab-btn" onclick="switchTab('file')" role="tab" aria-selected="false">
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                        onclick="switchTab('file')" 
+                        role="tab" 
+                        aria-selected="false">
                     📁 Local File
                 </button>
-                <button class="tab-btn" onclick="switchTab('repo')" role="tab" aria-selected="false">
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                        onclick="switchTab('repo')" 
+                        role="tab" 
+                        aria-selected="false">
                     📂 Repository
                 </button>
             </div>
 
             <!-- Tab: From URL -->
-            <div class="tab-content active" id="tab-url" role="tabpanel">
-                <div class="input-group">
-                    <label for="urlInput">M3U/M3U8 playlist URL:</label>
-                    <input type="url" id="urlInput" placeholder="https://example.com/playlist.m3u8" 
-                           aria-label="Playlist URL">
+            <div class="tab-content active py-4" id="tab-url" role="tabpanel">
+                <div class="input-group mb-5">
+                    <label for="urlInput" class="block mb-2 font-semibold text-sm">M3U/M3U8 playlist URL:</label>
+                    <input type="url" 
+                           id="urlInput" 
+                           placeholder="https://example.com/playlist.m3u8" 
+                           aria-label="Playlist URL"
+                           class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
                 </div>
-                <div class="input-group">
-                    <label for="urlCategory">Default category (optional):</label>
-                    <input type="text" id="urlCategory" placeholder="e.g: sports, movies..." 
-                           aria-label="Default category">
+                <div class="input-group mb-5">
+                    <label for="urlCategory" class="block mb-2 font-semibold text-sm">Default category (optional):</label>
+                    <input type="text" 
+                           id="urlCategory" 
+                           placeholder="e.g: sports, movies..." 
+                           aria-label="Default category"
+                           class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
                 </div>
-                <button class="load-btn" onclick="loadFromURL()" aria-label="Load from URL">
+                <button class="load-btn w-full px-6 py-4 bg-green-500 hover:bg-green-600 border-none text-white rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 mt-3" 
+                        onclick="loadFromURL()" 
+                        aria-label="Load from URL">
                     ⬇️ Load from URL
                 </button>
-                <div class="status-message" id="urlStatus" role="status"></div>
+                <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="urlStatus" role="status"></div>
             </div>
 
             <!-- Tab: From File -->
-            <div class="tab-content" id="tab-file" role="tabpanel">
-                <div class="input-group">
-                    <label for="fileInput">Select M3U/M3U8 file:</label>
-                    <div class="file-input-wrapper">
-                        <label class="file-input-label">
-                            <input type="file" id="fileInput" accept=".m3u,.m3u8" onchange="updateFileName()" 
-                                   aria-label="Select file">
-                            <span id="fileName">📄 Click to select file</span>
+            <div class="tab-content hidden py-4" id="tab-file" role="tabpanel">
+                <div class="input-group mb-5">
+                    <label for="fileInput" class="block mb-2 font-semibold text-sm">Select M3U/M3U8 file:</label>
+                    <div class="file-input-wrapper relative inline-block w-full">
+                        <label class="file-input-label block px-4 py-3 bg-white/10 hover:bg-white/20 border-2 border-dashed border-white/50 rounded-lg text-center cursor-pointer transition-all duration-300">
+                            <input type="file" 
+                                   id="fileInput" 
+                                   accept=".m3u,.m3u8" 
+                                   onchange="updateFileName()" 
+                                   aria-label="Select file"
+                                   class="hidden">
+                            <span id="fileName" class="font-medium">📄 Click to select file</span>
                         </label>
                     </div>
                 </div>
-                <div class="input-group">
-                    <label for="fileCategory">Default category (optional):</label>
-                    <input type="text" id="fileCategory" placeholder="e.g: sports, movies..." 
-                           aria-label="Default category">
+                <div class="input-group mb-5">
+                    <label for="fileCategory" class="block mb-2 font-semibold text-sm">Default category (optional):</label>
+                    <input type="text" 
+                           id="fileCategory" 
+                           placeholder="e.g: sports, movies..." 
+                           aria-label="Default category"
+                           class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
                 </div>
-                <button class="load-btn" onclick="loadFromFile()" aria-label="Load from file">
+                <button class="load-btn w-full px-6 py-4 bg-green-500 hover:bg-green-600 border-none text-white rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 mt-3" 
+                        onclick="loadFromFile()" 
+                        aria-label="Load from file">
                     ⬇️ Load from file
                 </button>
-                <div class="status-message" id="fileStatus" role="status"></div>
+                <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="fileStatus" role="status"></div>
             </div>
 
             <!-- Tab: From Repository -->
-            <div class="tab-content" id="tab-repo" role="tabpanel">
-                <div class="input-group">
-                    <label>Available playlists in repository:</label>
-                    <div class="repo-list" role="listbox">
-                        <div class="repo-item" onclick="selectRepoFile('data/canales-tv.m3u8')" role="option">
-                            📺 canales-tv.m3u8
-                            <span style="font-size: 12px; opacity: 0.7;">Live TV</span>
+            <div class="tab-content hidden py-4" id="tab-repo" role="tabpanel">
+                <div class="input-group mb-5">
+                    <label class="block mb-2 font-semibold text-sm">Available playlists in repository:</label>
+                    <div class="repo-list max-h-80 overflow-y-auto bg-black/20 rounded-lg p-3 space-y-2" role="listbox">
+                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                             onclick="selectRepoFile('data/canales-tv.m3u8')" 
+                             role="option">
+                            <span class="font-medium">📺 canales-tv.m3u8</span>
+                            <span class="text-xs opacity-70">Live TV</span>
                         </div>
-                        <div class="repo-item" onclick="selectRepoFile('data/listam3u8.m3u8')" role="option">
-                            📡 listam3u8.m3u8
-                            <span style="font-size: 12px; opacity: 0.7;">Main playlist</span>
+                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                             onclick="selectRepoFile('data/listam3u8.m3u8')" 
+                             role="option">
+                            <span class="font-medium">📡 listam3u8.m3u8</span>
+                            <span class="text-xs opacity-70">Main playlist</span>
                         </div>
-                        <div class="repo-item" onclick="selectRepoFile('data/canales.m3u')" role="option">
-                            📋 canales.m3u
-                            <span style="font-size: 12px; opacity: 0.7;">General channels</span>
+                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                             onclick="selectRepoFile('data/canales.m3u')" 
+                             role="option">
+                            <span class="font-medium">📋 canales.m3u</span>
+                            <span class="text-xs opacity-70">General channels</span>
                         </div>
-                        <div class="repo-item" onclick="selectRepoFile('data/mascanales.m3u')" role="option">
-                            ➕ mascanales.m3u
-                            <span style="font-size: 12px; opacity: 0.7;">Additional channels</span>
+                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                             onclick="selectRepoFile('data/mascanales.m3u')" 
+                             role="option">
+                            <span class="font-medium">➕ mascanales.m3u</span>
+                            <span class="text-xs opacity-70">Additional channels</span>
                         </div>
                     </div>
                 </div>
                 <input type="hidden" id="selectedRepoFile">
-                <button class="load-btn" onclick="loadFromRepo()" id="repoLoadBtn" disabled 
+                <button class="load-btn w-full px-6 py-4 bg-green-500 hover:bg-green-600 disabled:bg-white/20 disabled:cursor-not-allowed border-none text-white rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 disabled:hover:scale-100 disabled:hover:shadow-none mt-3" 
+                        onclick="loadFromRepo()" 
+                        id="repoLoadBtn" 
+                        disabled 
                         aria-label="Load selected playlist">
                     ⬇️ Load selected playlist
                 </button>
-                <div class="status-message" id="repoStatus" role="status"></div>
+                <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="repoStatus" role="status"></div>
             </div>
         </div>
     </div>

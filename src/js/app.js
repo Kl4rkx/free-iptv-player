@@ -199,21 +199,21 @@ class StreamingApp {
         // Renderizar categorías
         Object.entries(categoryGroups).forEach(([category, channels]) => {
             const categoryDiv = document.createElement('div');
-            categoryDiv.className = 'category';
+            categoryDiv.className = 'category mb-6 bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-xl border border-white/10 transition-all duration-300 hover:shadow-2xl';
             categoryDiv.id = `category-${category}`;
 
             // Header
             const categoryHeader = document.createElement('div');
-            categoryHeader.className = 'category-header';
+            categoryHeader.className = 'category-header text-2xl sm:text-3xl font-bold p-6 uppercase border-b-2 border-white/20 transition-all duration-300 flex items-center gap-4 cursor-pointer hover:bg-white/5';
             categoryHeader.innerHTML = `
-                <span class="collapse-icon">▼</span>
+                <span class="collapse-icon inline-block text-base transition-transform duration-300 min-w-[20px]">▼</span>
                 <span>${this.categoryTitles[category] || category}</span>
-                <span class="category-badge">${channels.length}</span>
+                <span class="category-badge inline-block bg-primary/30 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-semibold ml-auto border border-primary/50">${channels.length}</span>
             `;
 
             // Grid
             const channelsGrid = document.createElement('div');
-            channelsGrid.className = 'channels-grid';
+            channelsGrid.className = 'channels-grid grid gap-5 p-6 sm:p-8';
             channelsGrid.style.display = 'none';
 
             // Toggle collapse
@@ -226,10 +226,12 @@ class StreamingApp {
                     }
                     channelsGrid.style.display = 'grid';
                     icon.textContent = '▲';
+                    categoryDiv.classList.remove('collapsed');
                 } else {
                     // Colapsar
                     channelsGrid.style.display = 'none';
                     icon.textContent = '▼';
+                    categoryDiv.classList.add('collapsed');
                 }
             });
 
@@ -242,12 +244,14 @@ class StreamingApp {
     renderChannelCards(channels, container) {
         channels.forEach(channel => {
             const card = document.createElement('div');
-            card.className = 'channel-card';
+            card.className = 'channel-card bg-white/10 backdrop-blur-sm rounded-xl p-5 text-center transition-all duration-300 cursor-pointer border-2 border-transparent hover:bg-white/20 hover:-translate-y-2 hover:border-white/40 hover:shadow-xl active:scale-95';
             card.innerHTML = `
-                <img src="${channel.logo}" alt="${channel.name}" class="channel-logo" 
+                <img src="${channel.logo}" alt="${channel.name}" class="channel-logo w-20 h-20 object-contain mb-4 rounded-lg bg-white/90 p-2 mx-auto shadow-md" 
                      onerror="this.src='assets/icons/favicon.svg'">
-                <div class="channel-name">${channel.name}</div>
-                <button class="play-button">▶ Ver</button>
+                <div class="channel-name text-sm sm:text-base font-bold mb-3 min-h-[60px] flex items-center justify-center text-center leading-tight px-1 overflow-hidden" title="${channel.name}">
+                    <span class="line-clamp-3">${channel.name}</span>
+                </div>
+                <button class="play-button bg-green-500 hover:bg-green-600 text-white border-none px-5 py-2.5 rounded-full cursor-pointer text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50">▶ Ver</button>
             `;
             card.addEventListener('click', () => {
                 this.player.play(channel.url, channel.name);
