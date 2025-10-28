@@ -91,6 +91,13 @@ Simply visit:
 https://kl4rkx.github.io/free-iptv-player
 ```
 
+> **⚠️ Important Limitation:** The online demo has significant limitations due to:
+> - **CORS restrictions** - Many external streams will be blocked by browser security
+> - **GitHub Pages constraints** - Limited to HTTPS streams only
+> - **Mixed content blocking** - HTTP streams won't work
+> 
+> **Recommendation:** For full functionality and to load your own playlists, please run locally using one of the methods below.
+
 ### Local Development
 
 #### Option 1: Python HTTP Server

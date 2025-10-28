@@ -70,6 +70,8 @@ start.bat
 
 Visita: **[kl4rkx.github.io/free-iptv-player](https://kl4rkx.github.io/free-iptv-player)**
 
+> **⚠️ Nota Importante:** La demo online tiene limitaciones debido a la seguridad del navegador (CORS) y restricciones de GitHub Pages. Muchos canales externos pueden no funcionar correctamente. **Para funcionalidad completa y cargar tus propias listas, se recomienda fuertemente ejecutar localmente.**
+
 ### 🛠️ Configuración Manual (Alternativa)
 
 **Usando Python:**
@@ -110,7 +112,14 @@ Abre http://localhost:8080 en tu navegador
 
 Código de Conducta: **[docs/CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md)**
 
-## 📄 Licencia
+## �‍💻 Autor
+
+Creado y mantenido por **[Kl4rkx](https://github.com/Kl4rkx)**
+
+- GitHub: [@Kl4rkx](https://github.com/Kl4rkx)
+- Repositorio: [free-iptv-player](https://github.com/Kl4rkx/free-iptv-player)
+
+## �📄 Licencia
 
 Licencia MIT - ver archivo **[LICENSE](./LICENSE)** para más detalles.
 
@@ -122,7 +131,7 @@ Consulta **[SECURITY.md](./SECURITY.md)** para nuestra política de seguridad.
 
 <div align="center">
 
-**Hecho con ❤️ para la comunidad de streaming libre**
+**Hecho con ❤️ por [Kl4rkx](https://github.com/Kl4rkx)**
 
 [⬆ Volver arriba](#-free-iptv-player)
 

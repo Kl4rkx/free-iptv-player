@@ -52,6 +52,19 @@ m3u8hosting/
 
 ## 🚀 Cómo Usar
 
+### 🌐 Versión Online
+
+Visita: **[kl4rkx.github.io/free-iptv-player](https://kl4rkx.github.io/free-iptv-player)**
+
+> **⚠️ Limitación Importante:** La demo online tiene limitaciones significativas debido a:
+> - **Restricciones CORS** - Muchos streams externos serán bloqueados por seguridad del navegador
+> - **Restricciones de GitHub Pages** - Limitado solo a streams HTTPS
+> - **Bloqueo de contenido mixto** - Los streams HTTP no funcionarán
+> 
+> **Recomendación:** Para funcionalidad completa y cargar tus propias listas, ejecuta localmente usando uno de los métodos siguientes.
+
+### 💻 Ejecución Local
+
 ### Opción 1: Servidor Local Python
 ```bash
 cd c:\Users\Klark\Documents\Proyectos\m3u8hosting

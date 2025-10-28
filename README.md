@@ -70,6 +70,8 @@ That's it! The app will open automatically in your browser at `http://localhost:
 
 Visit: **[kl4rkx.github.io/free-iptv-player](https://kl4rkx.github.io/free-iptv-player)**
 
+> **⚠️ Important Note:** The online demo has limitations due to browser security (CORS) and GitHub Pages restrictions. Many external channels may not work properly. **For full functionality and to load your own playlists, we strongly recommend running locally.**
+
 ### 🛠️ Manual Setup (Alternative)
 
 **Using Python:**
@@ -110,7 +112,14 @@ Contributions are welcome! See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for guid
 
 Code of Conduct: **[docs/CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md)**
 
-## 📄 License
+## �‍💻 Author
+
+Created and maintained by **[Kl4rkx](https://github.com/Kl4rkx)**
+
+- GitHub: [@Kl4rkx](https://github.com/Kl4rkx)
+- Repository: [free-iptv-player](https://github.com/Kl4rkx/free-iptv-player)
+
+## �📄 License
 
 MIT License - see **[LICENSE](./LICENSE)** file for details.
 
@@ -122,7 +131,7 @@ See **[SECURITY.md](./SECURITY.md)** for our security policy.
 
 <div align="center">
 
-**Made with ❤️ for the free streaming community**
+**Made with ❤️ by [Kl4rkx](https://github.com/Kl4rkx)**
 
 [⬆ Back to top](#-free-iptv-player)
 
