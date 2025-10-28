@@ -1,53 +1,78 @@
-# 🎬 Canales de Streaming
+# 📚 Free IPTV Player - Documentation
 
-Plataforma web para reproducir canales de streaming en vivo con soporte para M3U8/HLS.
+Complete documentation for the Free IPTV Player project. Available in English and Spanish.
 
-## 🚀 Características
+## 📖 Documentation Index
 
-- ✅ Soporte completo para streams M3U8/HLS
-- ✅ Compatible con todos los navegadores modernos (Edge, Chrome, Firefox, Safari)
-- ✅ Diseño responsive para móviles, tablets y PC
-- ✅ Buscador de canales en tiempo real
-- ✅ Organización por categorías
-- ✅ Reproductor integrado con HLS.js
-- ✅ Service Worker para mejor rendimiento
-- ✅ PWA (Progressive Web App)
-- ✅ Favicon personalizado
+### 🇬🇧 English Documentation
 
-## 📋 Requisitos
+| Document | Description |
+|----------|-------------|
+| [Complete Guide](./COMPLETE-GUIDE.md) | Full feature documentation and technical details |
+| [IPTV App Configuration](./IPTV-APP-CONFIGURATION.md) | Setup guide for Smart TV IPTV apps |
+| [Load M3U Playlists](./LOAD-M3U-LISTS.md) | How to import M3U/M3U8 playlists |
+| [Changelog](./CHANGELOG.md) | Version history and updates |
+| [Code of Conduct](./CODE_OF_CONDUCT.md) | Community guidelines |
+| [Contributors](./CONTRIBUTORS.md) | Project contributors |
 
-- Navegador web moderno
-- Live Server (VS Code) o cualquier servidor HTTP local
+### 🇪🇸 Documentación en Español
 
-## 🛠️ Instalación y Uso
+| Documento | Descripción |
+|-----------|-------------|
+| [Guía Completa](./GUIA_COMPLETA.md) | Documentación completa de características y detalles técnicos |
+| [Configuración IPTV](./CONFIGURACION-IPTV.md) | Guía de configuración para apps IPTV en Smart TV |
+| [Cargar Listas M3U](./CARGAR-LISTAS-M3U.md) | Cómo importar listas de reproducción M3U/M3U8 |
 
-### Con Live Server (Recomendado)
+---
 
-1. Abre el proyecto en VS Code
-2. Instala la extensión "Live Server" si no la tienes
-3. Clic derecho en `index.html` → "Open with Live Server"
-4. La página se abrirá automáticamente en tu navegador
+## 🚀 Quick Links
 
-### Con Python (Alternativa)
+- [Main README](../README.md) - Project overview (English)
+- [README Español](../README.es.md) - Descripción del proyecto (Español)
+- [Legal Information](../data/README-LEGAL.md) - Legal compliance and guidelines
+- [Live Demo](https://kl4rkx.github.io/free-iptv-player) - Try it online
 
-```bash
-# Python 3
-python -m http.server 8000
+## � Getting Started
 
-# Luego abre http://localhost:8000 en tu navegador
-```
+### New Users
+1. Start with the [Complete Guide](./COMPLETE-GUIDE.md) (English) or [Guía Completa](./GUIA_COMPLETA.md) (Spanish)
+2. Learn how to [Load M3U Playlists](./LOAD-M3U-LISTS.md)
+3. Read the [Legal Information](../data/README-LEGAL.md)
 
-### Con Node.js (Alternativa)
+### Smart TV Users
+- Follow the [IPTV App Configuration](./IPTV-APP-CONFIGURATION.md) guide
+- Or [Configuración IPTV](./CONFIGURACION-IPTV.md) en español
 
-```bash
-npx http-server -p 8000
+### Developers
+- Check the [Complete Guide - Technical Details](./COMPLETE-GUIDE.md#-technical-details)
+- Review [Code of Conduct](./CODE_OF_CONDUCT.md)
+- See [Changelog](./CHANGELOG.md) for recent updates
 
-# Luego abre http://localhost:8000 en tu navegador
-```
+---
 
-## 📁 Estructura del Proyecto
+## 🌟 Feature Highlights
 
-```
+- 🎥 **HLS/M3U8 Player** - Modern streaming technology
+- 🌍 **Multiple Sources** - Load from URL, local files, or repository
+- 📱 **Fully Responsive** - Works on all devices
+- 🔍 **Instant Search** - Real-time filtering
+- 🔒 **Parental Controls** - PIN-protected categories
+- ⚡ **PWA Ready** - Install as an app
+- 🌐 **Bilingual** - English and Spanish
+
+---
+
+## 🆘 Need Help?
+
+- 📖 Check the documentation above
+- 🐛 [Report a bug](https://github.com/Kl4rkx/free-iptv-player/issues)
+- 💡 [Request a feature](https://github.com/Kl4rkx/free-iptv-player/issues)
+- 🤝 [Contribute](../CONTRIBUTING.md)
+
+---
+
+**Made with ❤️ for the open source community**
+
 m3u8hosting/
 ├── index.html          # Página principal
 ├── listam3u8.m3u8     # Lista de canales M3U8

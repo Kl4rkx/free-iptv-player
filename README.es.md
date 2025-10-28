@@ -52,27 +52,57 @@ Todo el contenido demo es legalmente disponible y con licencia apropiada.
 
 ## 🚀 Inicio Rápido
 
-### Online (Instantáneo)
+### ⚡ Inicio Instantáneo (Más Fácil)
+
+**Windows:**
+```cmd
+start.bat
+```
+
+**Linux/Mac:**
+```bash
+./start.sh
+```
+
+¡Eso es todo! La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8080`
+
+### 🌐 Online (Sin Instalación)
 
 Visita: **[kl4rkx.github.io/free-iptv-player](https://kl4rkx.github.io/free-iptv-player)**
 
-### Desarrollo Local
+### 🛠️ Configuración Manual (Alternativa)
 
+**Usando Python:**
 ```bash
 git clone https://github.com/Kl4rkx/free-iptv-player.git
 cd free-iptv-player
 python -m http.server 8080
 ```
 
-Abre http://localhost:8080
+**Usando Node.js:**
+```bash
+npx http-server -p 8080
+```
+
+Abre http://localhost:8080 en tu navegador
 
 ## 📚 Documentación
 
+### 📖 Documentación en Español
+
 - **[Guía Completa](./docs/GUIA_COMPLETA.md)** - Documentación completa de características
 - **[Configuración IPTV](./docs/CONFIGURACION-IPTV.md)** - Configuración para apps de TV
-- **[Cargar Listas](./docs/CARGAR-LISTAS-M3U.md)** - Cómo añadir listas M3U/M3U8
+- **[Cargar Listas M3U](./docs/CARGAR-LISTAS-M3U.md)** - Cómo añadir listas M3U/M3U8
+- **[Información Legal](./data/README-LEGAL.md)** - Cumplimiento legal y directrices
 - **[Registro de Cambios](./docs/CHANGELOG.md)** - Historial de versiones
+- **[Código de Conducta](./docs/CODE_OF_CONDUCT.md)** - Normas de la comunidad
 - **[Contribuidores](./docs/CONTRIBUTORS.md)** - Salón de la fama
+
+### 📖 English Documentation
+
+- **[Complete Guide](./docs/COMPLETE-GUIDE.md)** - Full feature documentation
+- **[IPTV App Configuration](./docs/IPTV-APP-CONFIGURATION.md)** - Setup for Smart TV apps
+- **[Load M3U Playlists](./docs/LOAD-M3U-LISTS.md)** - How to import M3U/M3U8 lists
 
 ## 🤝 Contribuir
 

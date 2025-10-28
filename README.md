@@ -52,27 +52,57 @@ All demo content is legally available and properly licensed.
 
 ## 🚀 Quick Start
 
-### Online (Instant)
+### ⚡ Instant Start (Easiest)
+
+**Windows:**
+```cmd
+start.bat
+```
+
+**Linux/Mac:**
+```bash
+./start.sh
+```
+
+That's it! The app will open automatically in your browser at `http://localhost:8080`
+
+### 🌐 Online (No Installation)
 
 Visit: **[kl4rkx.github.io/free-iptv-player](https://kl4rkx.github.io/free-iptv-player)**
 
-### Local Development
+### 🛠️ Manual Setup (Alternative)
 
+**Using Python:**
 ```bash
 git clone https://github.com/Kl4rkx/free-iptv-player.git
 cd free-iptv-player
 python -m http.server 8080
 ```
 
-Open http://localhost:8080
+**Using Node.js:**
+```bash
+npx http-server -p 8080
+```
+
+Open http://localhost:8080 in your browser
 
 ## 📚 Documentation
 
-- **[Complete Guide](./docs/GUIA_COMPLETA.md)** - Full feature documentation
-- **[IPTV Configuration](./docs/CONFIGURACION-IPTV.md)** - Setup for TV apps
-- **[Loading Playlists](./docs/CARGAR-LISTAS-M3U.md)** - How to add M3U/M3U8 lists
-- **[Changelog](./docs/CHANGELOG.md)** - Version history
+### 📖 English Documentation
+
+- **[Complete Guide](./docs/COMPLETE-GUIDE.md)** - Full feature documentation and technical details
+- **[IPTV App Configuration](./docs/IPTV-APP-CONFIGURATION.md)** - Setup for Smart TV apps
+- **[Load M3U Playlists](./docs/LOAD-M3U-LISTS.md)** - How to import M3U/M3U8 lists
+- **[Legal Information](./data/README-LEGAL.md)** - Legal compliance and guidelines
+- **[Changelog](./docs/CHANGELOG.md)** - Version history and updates
+- **[Code of Conduct](./docs/CODE_OF_CONDUCT.md)** - Community guidelines
 - **[Contributors](./docs/CONTRIBUTORS.md)** - Hall of fame
+
+### 📖 Documentación en Español
+
+- **[Guía Completa](./docs/GUIA_COMPLETA.md)** - Documentación completa de características
+- **[Configuración IPTV](./docs/CONFIGURACION-IPTV.md)** - Configuración para apps de TV
+- **[Cargar Listas M3U](./docs/CARGAR-LISTAS-M3U.md)** - Cómo añadir listas M3U/M3U8
 
 ## 🤝 Contributing
 
