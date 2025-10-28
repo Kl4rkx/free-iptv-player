@@ -27,24 +27,6 @@ const CANALES_STREAMING = [
 ];
 
 // Mensaje legal
-console.info(`
-╔════════════════════════════════════════════════════════════════╗
-║  🎯 FREE IPTV PLAYER - Demo Channel                           ║
-║                                                                ║
-║  ✅ Stream legal de dominio público (Creative Commons)        ║
-║  ✅ Sin piratería ni contenido protegido por copyright        ║
-║  ✅ Compatible con GitHub Pages (HTTPS + CORS)                ║
-║                                                                ║
-║  ⚠️  Este proyecto NO apoya el uso ilegal de contenido       ║
-║  ⚠️  Cumple con las leyes de tu país                         ║
-╚════════════════════════════════════════════════════════════════╝
-`);
-║                                                                ║
-║  ✅ Todos los streams son legales y de dominio público        ║
-║  ✅ Contenido Creative Commons y educativo                    ║
-║  ✅ Sin piratería ni contenido protegido por copyright        ║
-║                                                                ║
-║  ⚠️  Este proyecto NO apoya el uso ilegal de contenido       ║
-║  ⚠️  Cumple con las leyes de tu país                         ║
-╚════════════════════════════════════════════════════════════════╝
-`);
+console.log("FREE IPTV PLAYER - Demo Channel");
+console.log("Stream legal Creative Commons - Compatible con GitHub Pages");
+
