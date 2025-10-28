@@ -54,8 +54,32 @@
     <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="./src/css/styles.css">
     <link rel="stylesheet" href="./src/css/modal.css">
+    
+    <!-- iOS Safari Safe Area Support -->
+    <style>
+        :root {
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-right: env(safe-area-inset-right, 0px);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-inset-left: env(safe-area-inset-left, 0px);
+        }
+        
+        /* Fix for Safari iOS white bars - use dvh (dynamic viewport height) */
+        html {
+            height: 100%;
+            background: #000;
+        }
+        
+        body {
+            min-height: 100dvh;
+            min-height: -webkit-fill-available;
+            position: relative;
+            padding-top: var(--safe-area-inset-top);
+            padding-bottom: var(--safe-area-inset-bottom);
+        }
+    </style>
 </head>
-<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white min-h-screen">
+<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
     <!-- Loading Screen -->
     <div id="loadingPage" class="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col justify-center items-center z-[10000] transition-all duration-500">
         <div class="loading-spinner w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full"></div>
@@ -86,11 +110,15 @@
             
             <!-- Main Title (centered, below buttons) -->
             <div class="text-center">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight px-4">
-                    <span class="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent inline-block py-2">
-                        📺 Streaming Channels
+                <!-- Professional title without emoji, with modern gradient and shadow effects -->
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-4 leading-tight px-4 tracking-tight">
+                    <span class="bg-gradient-to-r from-blue-400 via-primary to-blue-600 bg-clip-text text-transparent inline-block">
+                        Free IPTV Player
                     </span>
                 </h1>
+                <p class="text-lg sm:text-xl text-gray-300 font-medium mb-6 max-w-2xl mx-auto">
+                    Live TV Streaming Platform
+                </p>
             </div>
             
             <!-- Search Box -->

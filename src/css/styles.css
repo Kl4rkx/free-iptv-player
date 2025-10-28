@@ -1,5 +1,13 @@
 /* M3U8 Streaming Platform - Custom Styles */
 
+/* iOS Safari Safe Area Support */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
 /* Animations */
 @keyframes spin {
     to { transform: rotate(360deg); }
