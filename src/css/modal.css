@@ -1,0 +1,268 @@
+/* ============================================
+   M3U8 Streaming Platform - Modal Styles
+   ============================================ */
+
+/* Playlist Modal */
+.playlist-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.playlist-modal.active {
+    display: flex;
+}
+
+.playlist-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.playlist-header h2 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.playlist-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.playlist-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* Tabs */
+.tabs-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    font-size: 14px;
+    transition: all 0.3s;
+    flex: 1;
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-content {
+    display: none;
+    padding: 20px 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* File Input */
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-label {
+    display: block;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-input-label:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.file-input-label input[type="file"] {
+    display: none;
+}
+
+/* Load Button */
+.load-btn {
+    width: 100%;
+    padding: 15px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.load-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.load-btn:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Repository List */
+.repo-list {
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.repo-item {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.repo-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.repo-item.selected {
+    background: rgba(76, 175, 80, 0.5);
+    border: 2px solid #4CAF50;
+}
+
+/* Status Messages */
+.status-message {
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+    display: none;
+}
+
+.status-message.success {
+    background: rgba(76, 175, 80, 0.3);
+    border: 1px solid #4CAF50;
+    display: block;
+}
+
+.status-message.error {
+    background: rgba(244, 67, 54, 0.3);
+    border: 1px solid #f44336;
+    display: block;
+}
+
+.status-message.info {
+    background: rgba(33, 150, 243, 0.3);
+    border: 1px solid #2196F3;
+    display: block;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .playlist-content {
+        max-width: 95%;
+        padding: 20px;
+        max-height: 85vh;
+    }
+
+    .playlist-header h2 {
+        font-size: 1.3em;
+    }
+
+    .tabs-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tab-btn {
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .input-group input,
+    .input-group select {
+        font-size: 16px;
+    }
+}

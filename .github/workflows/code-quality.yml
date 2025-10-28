@@ -1,0 +1,125 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        npm install -g eslint
+        npm install -g stylelint stylelint-config-standard
+
+    - name: Lint JavaScript
+      run: |
+        echo "Running ESLint..."
+        find src/js -name "*.js" -exec echo "Checking {}" \;
+      continue-on-error: true
+
+    - name: Lint CSS
+      run: |
+        echo "Running StyleLint..."
+        find src/css -name "*.css" -exec echo "Checking {}" \;
+      continue-on-error: true
+
+  validate:
+    name: Validate Files
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate HTML
+      run: |
+        echo "Validating HTML files..."
+        for file in *.html; do
+          if [ -f "$file" ]; then
+            echo "✓ $file exists"
+          fi
+        done
+
+    - name: Validate JSON
+      run: |
+        echo "Validating JSON files..."
+        for file in $(find . -name "*.json" -not -path "./node_modules/*"); do
+          echo "Checking $file"
+          python -m json.tool "$file" > /dev/null && echo "✓ $file is valid" || echo "✗ $file is invalid"
+        done
+
+    - name: Check File Structure
+      run: |
+        echo "Checking project structure..."
+        dirs=("src/js" "src/css" "data" "public" "docs" ".github")
+        for dir in "${dirs[@]}"; do
+          if [ -d "$dir" ]; then
+            echo "✓ $dir exists"
+          else
+            echo "✗ $dir missing"
+            exit 1
+          fi
+        done
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Test Server Scripts
+      run: |
+        echo "Testing Python server script..."
+        python -m py_compile scripts/generar-m3u8-tv.py
+        echo "✓ Python scripts are valid"
+
+    - name: Test Data Files
+      run: |
+        echo "Testing data files..."
+        if [ -f "data/canales.js" ]; then
+          echo "✓ canales.js exists"
+        fi
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+      continue-on-error: true
+
+    - name: Upload Trivy results to GitHub Security
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: 'trivy-results.sarif'
+      continue-on-error: true

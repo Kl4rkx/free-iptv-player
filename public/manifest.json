@@ -1,0 +1,35 @@
+{
+  "name": "M3U8 Streaming Platform",
+  "short_name": "M3U8 Player",
+  "description": "Plataforma de streaming de canales en vivo con soporte M3U8/HLS",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "any",
+  "categories": ["entertainment", "multimedia"],
+  "icons": [
+    {
+      "src": "./assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Buscar Canales",
+      "short_name": "Buscar",
+      "description": "Buscar canales disponibles",
+      "url": "./#search"
+    },
+    {
+      "name": "Cargar Lista",
+      "short_name": "Cargar",
+      "description": "Cargar nueva lista M3U",
+      "url": "./#load"
+    }
+  ]
+}

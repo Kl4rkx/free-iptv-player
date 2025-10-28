@@ -1,0 +1,25 @@
+# ============================================
+# GitHub Pages Configuration
+# ============================================
+
+# Include hidden files
+include:
+  - .htaccess
+  - .nojekyll
+
+# Exclude unnecessary files from build
+exclude:
+  - node_modules/
+  - scripts/
+  - docs/CHANGELOG.md
+  - README_DEV.md
+  - .vscode/
+  - .idea/
+  - "*.backup"
+  - "*.bak"
+  - "*.log"
+
+# Plugins (for Jekyll, if needed)
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag

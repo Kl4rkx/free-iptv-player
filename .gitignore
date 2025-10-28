@@ -1,0 +1,68 @@
+# Archivos de canales (datos sensibles)
+data/canales.js
+data/canales.m3u
+data/*.m3u
+data/*.m3u8
+
+# Playlist M3U8 generada (opcional: comentar si quieres subirla)
+# data/canales-tv.m3u8
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.bak
+*_backup_*
+*_nuevo.*
+
+# Node modules (si se usa npm)
+node_modules/
+package-lock.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Backups
+*.backup
+backup/
+backups/
+
+# Archivos de prueba
+test/
+tests/
+*.test.*
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+cache/
+
+# Certificados y keys (si se usan)
+*.pem
+*.key
+*.crt
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+dist/
+build/

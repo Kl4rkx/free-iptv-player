@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Live TV streaming platform - Sports, Movies, Series, Documentaries and more">
+    <meta name="keywords" content="streaming, channels, live tv, sports, movies, series, m3u8, iptv">
+    <meta name="author" content="Streaming Platform">
+    <meta name="theme-color" content="#667eea">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="alternate icon" href="assets/icons/favicon.svg">
+    <link rel="mask-icon" href="assets/icons/favicon.svg" color="#667eea">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Streaming">
+    <link rel="apple-touch-startup-image" href="assets/icons/favicon.svg">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./public/manifest.json">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="M3U8 Streaming Platform">
+    <meta property="og:description" content="Live TV streaming platform">
+    <meta property="og:image" content="./assets/icons/favicon.svg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="M3U8 Streaming Platform">
+    <meta name="twitter:description" content="Live TV streaming platform">
+    
+    <title>M3U8 Streaming Platform</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/modal.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingPage">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading channels...</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <header>
+            <h1>📺 Streaming Channels</h1>
+            
+            <!-- Language Switcher -->
+            <div style="position: absolute; top: 10px; left: 10px;">
+                <a href="./index.html" style="color: white; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.2); border-radius: 5px; font-size: 14px;">
+                    🇪🇸 Español
+                </a>
+            </div>
+            
+            <!-- Parental Control Button -->
+            <button id="parentalBtn" onclick="toggleControlParental()" 
+                    title="Parental Control" aria-label="Parental Control">
+                🔒
+            </button>
+            
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" id="searchInput" 
+                       placeholder="🔍 Search channel..." 
+                       autocomplete="off" 
+                       autocorrect="off" 
+                       autocapitalize="off" 
+                       spellcheck="false"
+                       aria-label="Search channels">
+            </div>
+        </header>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+            <button class="control-btn" onclick="expandAllCategories()" aria-label="Expand all categories">
+                📂 Expand All
+            </button>
+            <button class="control-btn" onclick="collapseAllCategories()" aria-label="Collapse all categories">
+                📁 Collapse All
+            </button>
+            <button class="control-btn" onclick="openPlaylistModal()" aria-label="Load M3U playlist">
+                📥 Load M3U Playlist
+            </button>
+            <span class="control-btn" style="cursor: default; font-size: 14px;" aria-label="Total channels">
+                📊 <span id="totalChannels">0</span> channels
+            </span>
+        </div>
+
+        <!-- Channels Container -->
+        <div id="channelsContainer"></div>
+        
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">No channels found</div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player">
+        <div class="video-container">
+            <button class="close-button" onclick="closeVideo()" aria-label="Close player">
+                ✕ Close
+            </button>
+            <div class="loading-indicator" id="loadingIndicator">⏳ Loading stream...</div>
+            <video id="videoPlayer" 
+                   controls 
+                   autoplay 
+                   playsinline 
+                   webkit-playsinline 
+                   x5-playsinline
+                   aria-label="Video player"></video>
+        </div>
+    </div>
+
+    <!-- Playlist Loader Modal -->
+    <div class="playlist-modal" id="playlistModal" role="dialog" aria-modal="true" aria-label="Load channel playlist">
+        <div class="playlist-content">
+            <div class="playlist-header">
+                <h2>📥 Load Channel Playlist</h2>
+                <button class="playlist-close" onclick="closePlaylistModal()" aria-label="Close modal">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-container" role="tablist">
+                <button class="tab-btn active" onclick="switchTab('url')" role="tab" aria-selected="true">
+                    🌐 From URL
+                </button>
+                <button class="tab-btn" onclick="switchTab('file')" role="tab" aria-selected="false">
+                    📁 Local File
+                </button>
+                <button class="tab-btn" onclick="switchTab('repo')" role="tab" aria-selected="false">
+                    📂 Repository
+                </button>
+            </div>
+
+            <!-- Tab: From URL -->
+            <div class="tab-content active" id="tab-url" role="tabpanel">
+                <div class="input-group">
+                    <label for="urlInput">M3U/M3U8 playlist URL:</label>
+                    <input type="url" id="urlInput" placeholder="https://example.com/playlist.m3u8" 
+                           aria-label="Playlist URL">
+                </div>
+                <div class="input-group">
+                    <label for="urlCategory">Default category (optional):</label>
+                    <input type="text" id="urlCategory" placeholder="e.g: sports, movies..." 
+                           aria-label="Default category">
+                </div>
+                <button class="load-btn" onclick="loadFromURL()" aria-label="Load from URL">
+                    ⬇️ Load from URL
+                </button>
+                <div class="status-message" id="urlStatus" role="status"></div>
+            </div>
+
+            <!-- Tab: From File -->
+            <div class="tab-content" id="tab-file" role="tabpanel">
+                <div class="input-group">
+                    <label for="fileInput">Select M3U/M3U8 file:</label>
+                    <div class="file-input-wrapper">
+                        <label class="file-input-label">
+                            <input type="file" id="fileInput" accept=".m3u,.m3u8" onchange="updateFileName()" 
+                                   aria-label="Select file">
+                            <span id="fileName">📄 Click to select file</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="fileCategory">Default category (optional):</label>
+                    <input type="text" id="fileCategory" placeholder="e.g: sports, movies..." 
+                           aria-label="Default category">
+                </div>
+                <button class="load-btn" onclick="loadFromFile()" aria-label="Load from file">
+                    ⬇️ Load from file
+                </button>
+                <div class="status-message" id="fileStatus" role="status"></div>
+            </div>
+
+            <!-- Tab: From Repository -->
+            <div class="tab-content" id="tab-repo" role="tabpanel">
+                <div class="input-group">
+                    <label>Available playlists in repository:</label>
+                    <div class="repo-list" role="listbox">
+                        <div class="repo-item" onclick="selectRepoFile('data/canales-tv.m3u8')" role="option">
+                            📺 canales-tv.m3u8
+                            <span style="font-size: 12px; opacity: 0.7;">Live TV</span>
+                        </div>
+                        <div class="repo-item" onclick="selectRepoFile('data/listam3u8.m3u8')" role="option">
+                            📡 listam3u8.m3u8
+                            <span style="font-size: 12px; opacity: 0.7;">Main playlist</span>
+                        </div>
+                        <div class="repo-item" onclick="selectRepoFile('data/canales.m3u')" role="option">
+                            📋 canales.m3u
+                            <span style="font-size: 12px; opacity: 0.7;">General channels</span>
+                        </div>
+                        <div class="repo-item" onclick="selectRepoFile('data/mascanales.m3u')" role="option">
+                            ➕ mascanales.m3u
+                            <span style="font-size: 12px; opacity: 0.7;">Additional channels</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedRepoFile">
+                <button class="load-btn" onclick="loadFromRepo()" id="repoLoadBtn" disabled 
+                        aria-label="Load selected playlist">
+                    ⬇️ Load selected playlist
+                </button>
+                <div class="status-message" id="repoStatus" role="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <!-- Data -->
+    <script src="./data/canales.js"></script>
+    
+    <!-- App Scripts (ES6 Modules) -->
+    <script type="module" src="./src/js/app.js"></script>
+</body>
+</html>
