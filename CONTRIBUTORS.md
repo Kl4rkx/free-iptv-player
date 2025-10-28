@@ -24,10 +24,10 @@ Thank you to all the people who have contributed to this project! 🎉
 We welcome contributions from everyone! Here's how you can help:
 
 ### 🐛 Report Bugs
-Found a bug? [Open an issue](https://github.com/YOUR_USERNAME/m3u8hosting/issues/new?template=bug_report.md)
+Found a bug? [Open an issue](https://github.com/Kl4rkx/free-iptv-player/issues/new?template=bug_report.md)
 
 ### ✨ Suggest Features
-Have an idea? [Request a feature](https://github.com/YOUR_USERNAME/m3u8hosting/issues/new?template=feature_request.md)
+Have an idea? [Request a feature](https://github.com/Kl4rkx/free-iptv-player/issues/new?template=feature_request.md)
 
 ### 💻 Submit Code
 1. Fork the repository
@@ -62,9 +62,9 @@ We recognize all types of contributions:
 
 ## Stats
 
-![Contributors](https://img.shields.io/github/contributors/YOUR_USERNAME/m3u8hosting?style=flat-square)
-![Commits](https://img.shields.io/github/commit-activity/m/YOUR_USERNAME/m3u8hosting?style=flat-square)
-![Last Commit](https://img.shields.io/github/last-commit/YOUR_USERNAME/m3u8hosting?style=flat-square)
+![Contributors](https://img.shields.io/github/contributors/Kl4rkx/free-iptv-player?style=flat-square)
+![Commits](https://img.shields.io/github/commit-activity/m/Kl4rkx/free-iptv-player?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/Kl4rkx/free-iptv-player?style=flat-square)
 
 ---
 

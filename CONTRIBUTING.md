@@ -68,8 +68,8 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/m3u8hosting.git
-cd m3u8hosting
+git clone https://github.com/your-username/free-iptv-player.git
+cd free-iptv-player
 
 # Create a new branch
 git checkout -b feature/my-new-feature

@@ -63,5 +63,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/YOUR_USERNAME/m3u8hosting/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/YOUR_USERNAME/m3u8hosting/releases/tag/v1.0.0
+[Unreleased]: https://github.com/Kl4rkx/free-iptv-player/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Kl4rkx/free-iptv-player/releases/tag/v1.0.0

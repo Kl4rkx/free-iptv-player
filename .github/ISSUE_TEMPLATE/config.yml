@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📚 Documentation
-    url: https://github.com/YOUR_USERNAME/m3u8hosting/tree/main/docs
+    url: https://github.com/Kl4rkx/free-iptv-player/tree/main/docs
     about: Check our comprehensive documentation for guides and tutorials
   - name: 💬 Discussions
-    url: https://github.com/YOUR_USERNAME/m3u8hosting/discussions
+    url: https://github.com/Kl4rkx/free-iptv-player/discussions
     about: Ask questions and discuss ideas with the community
   - name: 🔒 Security Issue
-    url: https://github.com/YOUR_USERNAME/m3u8hosting/security/advisories/new
+    url: https://github.com/Kl4rkx/free-iptv-player/security/advisories/new
     about: Report security vulnerabilities privately (do not create public issues)
