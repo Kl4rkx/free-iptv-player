@@ -40,12 +40,6 @@ class StreamingApp {
         this.expandedCategories = new Set();
         this.categorizedChannels = null;
 
-        // Mostrar mensaje si no hay canales cargados
-        if (this.channels.length === 0) {
-            console.warn('⚠️ No channels loaded from canales.js - showing welcome message');
-            this.showWelcomeMessage();
-        }
-
         // Inicializar componentes
         this.player = new VideoPlayer(
             document.getElementById('videoPlayer'),
@@ -65,8 +59,14 @@ class StreamingApp {
         // Actualizar contador
         document.getElementById('totalChannels').textContent = this.channels.length;
         
-        // Renderizar canales
-        this.renderChannels();
+        // Renderizar canales o mensaje de bienvenida
+        if (this.channels.length === 0) {
+            console.warn('⚠️ No channels loaded - showing welcome message');
+            this.showWelcomeMessage();
+        } else {
+            this.renderChannels();
+        }
+        
         this.actualizarBotonParental();
         
         // Event Listeners
