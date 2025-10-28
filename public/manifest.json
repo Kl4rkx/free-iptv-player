@@ -11,7 +11,7 @@
   "categories": ["entertainment", "multimedia"],
   "icons": [
     {
-      "src": "./assets/icons/favicon.svg",
+  "src": "../assets/icons/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

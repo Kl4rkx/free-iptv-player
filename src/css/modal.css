@@ -1,21 +1,9 @@
-/* ============================================
-   M3U8 Streaming Platform - Modal Styles
-   Modern Tailwind-based Design
-   ============================================ */
+/* Modal Styles */
 
-/* ============================================
-   Modal Base Styles
-   Most styles are handled by Tailwind classes
-   in the HTML. This file only contains
-   custom states and transitions.
-   ============================================ */
-
-/* Playlist Modal Active State */
 .playlist-modal.active {
     display: flex !important;
 }
 
-/* Tab System */
 .tab-content {
     display: none;
 }
@@ -29,12 +17,6 @@
     font-weight: 700;
 }
 
-/* File Input Hidden */
-.file-input-label input[type="file"] {
-    display: none;
-}
-
-/* Repository Item Selection State */
 .repo-item.selected {
     background: rgba(76, 175, 80, 0.5) !important;
     border: 2px solid #4CAF50 !important;
@@ -67,15 +49,14 @@
     display: block;
 }
 
-/* ============================================
-   Custom Scrollbar for Modal Content
-   ============================================ */
-
-.playlist-content::-webkit-scrollbar {
+/* Scrollbars */
+.playlist-content::-webkit-scrollbar,
+.repo-list::-webkit-scrollbar {
     width: 8px;
 }
 
-.playlist-content::-webkit-scrollbar-track {
+.playlist-content::-webkit-scrollbar-track,
+.repo-list::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
@@ -87,14 +68,6 @@
 
 .playlist-content::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
-}
-
-.repo-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.repo-list::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
 }
 
 .repo-list::-webkit-scrollbar-thumb {

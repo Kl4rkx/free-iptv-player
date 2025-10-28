@@ -6,22 +6,17 @@
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Live TV streaming platform - Sports, Movies, Series, Documentaries and more">
-    <meta name="keywords" content="streaming, channels, live tv, sports, movies, series, m3u8, iptv">
     <meta name="author" content="Streaming Platform">
-    <meta name="theme-color" content="#667eea">
-    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#0057FF">
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    <link rel="alternate icon" href="assets/icons/favicon.svg">
-    <link rel="mask-icon" href="assets/icons/favicon.svg" color="#667eea">
+    <link rel="mask-icon" href="assets/icons/favicon.svg" color="#0057FF">
     
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Streaming">
-    <link rel="apple-touch-startup-image" href="assets/icons/favicon.svg">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="./public/manifest.json">
@@ -32,27 +27,20 @@
     <meta property="og:description" content="Live TV streaming platform">
     <meta property="og:image" content="./assets/icons/favicon.svg">
     
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="M3U8 Streaming Platform">
-    <meta name="twitter:description" content="Live TV streaming platform">
-    
-    <title>M3U8 Streaming Platform</title>
+    <title>Live TV Streaming | Free IPTV Player</title>
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.14"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0057FF',
-                        dark: '#0A0A0A',
-                        light: '#F8F9FA',
+                        primary: '#0057FF'
                     },
                     fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-                    },
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
                 }
             }
         }
@@ -131,7 +119,7 @@
                     aria-label="Collapse all categories">
                 📁 Collapse All
             </button>
-            <button class="control-btn px-6 py-3 bg-primary hover:bg-blue-600 text-white rounded-xl cursor-pointer text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/50" 
+            <button class="control-btn px-6 py-3 bg-primary hover:bg-blue-600 text-white rounded-xl cursor-pointer text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/50" 
                     onclick="openPlaylistModal()" 
                     aria-label="Load M3U playlist">
                 📥 Load M3U Playlist
@@ -217,20 +205,20 @@
 
             <!-- Tabs -->
             <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2" role="tablist">
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
-                        onclick="switchTab('url')" 
+                <button class="tab-btn active flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                        onclick="switchTab(event, 'url')" 
                         role="tab" 
                         aria-selected="true">
                     🌐 From URL
                 </button>
                 <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
-                        onclick="switchTab('file')" 
+                        onclick="switchTab(event, 'file')" 
                         role="tab" 
                         aria-selected="false">
                     📁 Local File
                 </button>
                 <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
-                        onclick="switchTab('repo')" 
+                        onclick="switchTab(event, 'repo')" 
                         role="tab" 
                         aria-selected="false">
                     📂 Repository
@@ -300,26 +288,26 @@
                 <div class="input-group mb-5">
                     <label class="block mb-2 font-semibold text-sm">Available playlists in repository:</label>
                     <div class="repo-list max-h-80 overflow-y-auto bg-black/20 rounded-lg p-3 space-y-2" role="listbox">
-                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
-                             onclick="selectRepoFile('data/canales-tv.m3u8')" 
+                    <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                        onclick="selectRepoFile(event, 'data/canales-tv.m3u8')" 
                              role="option">
                             <span class="font-medium">📺 canales-tv.m3u8</span>
                             <span class="text-xs opacity-70">Live TV</span>
                         </div>
-                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
-                             onclick="selectRepoFile('data/listam3u8.m3u8')" 
+                    <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                        onclick="selectRepoFile(event, 'data/listam3u8.m3u8')" 
                              role="option">
                             <span class="font-medium">📡 listam3u8.m3u8</span>
                             <span class="text-xs opacity-70">Main playlist</span>
                         </div>
-                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
-                             onclick="selectRepoFile('data/canales.m3u')" 
+                    <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                        onclick="selectRepoFile(event, 'data/canales.m3u')" 
                              role="option">
                             <span class="font-medium">📋 canales.m3u</span>
                             <span class="text-xs opacity-70">General channels</span>
                         </div>
-                        <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
-                             onclick="selectRepoFile('data/mascanales.m3u')" 
+                    <div class="repo-item px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 flex justify-between items-center" 
+                        onclick="selectRepoFile(event, 'data/mascanales.m3u')" 
                              role="option">
                             <span class="font-medium">➕ mascanales.m3u</span>
                             <span class="text-xs opacity-70">Additional channels</span>
@@ -340,19 +328,10 @@
     </div>
 
     <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.14"></script>
     
     <!-- Demo Channels - 100% Legal & Ethical Content -->
     <script src="./data/canales-demo.js"></script>
-    
-    <!-- App Scripts (ES6 Modules) -->
-    <script type="module" src="./src/js/app.js"></script>
-</body>
-</html>
-</script>
-    
-    <!-- Data -->
-    <script src="./data/canales.js"></script>
     
     <!-- App Scripts (ES6 Modules) -->
     <script type="module" src="./src/js/app.js"></script>

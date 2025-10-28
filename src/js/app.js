@@ -35,8 +35,8 @@ class StreamingApp {
             "adulto": "🔞 Contenido Adulto"
         };
 
-        // Estado
-        this.channels = typeof CANALES_STREAMING !== 'undefined' ? CANALES_STREAMING : [];
+    // Estado
+    this.channels = typeof CANALES_STREAMING !== 'undefined' ? this.sanitizeChannels(CANALES_STREAMING) : [];
         this.expandedCategories = new Set();
         this.categorizedChannels = null;
 
@@ -254,9 +254,30 @@ class StreamingApp {
                 <button class="play-button bg-green-500 hover:bg-green-600 text-white border-none px-5 py-2.5 rounded-full cursor-pointer text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50">▶ Ver</button>
             `;
             card.addEventListener('click', () => {
+                // Bloquear reproducción HTTP en contexto HTTPS para evitar Mixed Content
+                if (location.protocol === 'https:' && channel.url && channel.url.startsWith('http://')) {
+                    alert('Este canal usa HTTP y está bloqueado en HTTPS. Intenta abrir el sitio por HTTP o usa una fuente HTTPS.');
+                    return;
+                }
                 this.player.play(channel.url, channel.name);
             });
             container.appendChild(card);
+        });
+    }
+
+    // Normaliza y sanea canales para producción
+    sanitizeChannels(list) {
+        return (list || []).map(ch => {
+            const c = { ...ch };
+            // categoría estandarizada
+            c.category = (c.category || 'general').toLowerCase().trim();
+            // evitar solicitudes HTTP de logos en HTTPS
+            if (c.logo && typeof c.logo === 'string' && c.logo.startsWith('http://')) {
+                c.logo = 'assets/icons/favicon.svg';
+            }
+            // logo por defecto
+            if (!c.logo) c.logo = 'assets/icons/favicon.svg';
+            return c;
         });
     }
 
@@ -336,13 +357,35 @@ class StreamingApp {
         this.clearStatusMessages();
     }
 
-    switchTab(tabName) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    // Switch between tabs in the playlist modal
+    // Handles tab activation, content visibility, and ARIA attributes
+    switchTab(evt, tabName) {
+        // Reset all tabs to inactive state
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+        });
         
-        event.target.classList.add('active');
-        document.getElementById('tab-' + tabName).classList.add('active');
+        // Hide all tab content panels
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+            content.classList.add('hidden');
+        });
         
+        // Activate the clicked tab button
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add('active');
+            evt.currentTarget.setAttribute('aria-selected', 'true');
+        }
+        
+        // Show the selected tab content
+        const targetTab = document.getElementById('tab-' + tabName);
+        if (targetTab) {
+            targetTab.classList.add('active');
+            targetTab.classList.remove('hidden');
+        }
+        
+        // Clear any previous status messages
         this.clearStatusMessages();
     }
 
@@ -416,12 +459,14 @@ class StreamingApp {
         }
     }
 
-    selectRepoFile(filePath) {
+    selectRepoFile(evt, filePath) {
         document.querySelectorAll('.repo-item').forEach(item => {
             item.classList.remove('selected');
         });
         
-        event.currentTarget.classList.add('selected');
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add('selected');
+        }
         document.getElementById('selectedRepoFile').value = filePath;
         document.getElementById('repoLoadBtn').disabled = false;
     }
@@ -447,8 +492,8 @@ class StreamingApp {
 
     mergeChannels(loadedChannels) {
         // Combinar canales originales con los cargados dinámicamente
-        const originalChannels = typeof CANALES_STREAMING !== 'undefined' ? CANALES_STREAMING : [];
-        const allChannels = [...originalChannels, ...loadedChannels];
+        const originalChannels = typeof CANALES_STREAMING !== 'undefined' ? this.sanitizeChannels(CANALES_STREAMING) : [];
+        const allChannels = [...originalChannels, ...this.sanitizeChannels(loadedChannels)];
         
         // Eliminar duplicados por nombre y URL
         const uniqueChannels = allChannels.reduce((acc, channel) => {
@@ -475,7 +520,7 @@ class StreamingApp {
     registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./public/sw.js')
+                navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
                         console.log('Service Worker registrado:', registration.scope);
                     })
@@ -487,7 +532,7 @@ class StreamingApp {
     }
 
     showWelcomeMessage() {
-        const channelContainer = document.getElementById('channelContainer');
+        const channelContainer = document.getElementById('channelsContainer');
         channelContainer.innerHTML = `
             <div style="
                 display: flex;
@@ -511,7 +556,7 @@ class StreamingApp {
                     style="
                         padding: 1rem 2rem;
                         font-size: 1.1rem;
-                        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                        background: linear-gradient(135deg, #667eea, #764ba2);
                         color: white;
                         border: none;
                         border-radius: 12px;
@@ -559,9 +604,10 @@ window.collapseAllCategories = () => app.collapseAllCategories();
 window.toggleControlParental = () => app.toggleControlParental();
 window.openPlaylistModal = () => app.openPlaylistModal();
 window.closePlaylistModal = () => app.closePlaylistModal();
-window.switchTab = (tabName) => app.switchTab(tabName);
+// Pass event object to maintain proper tab state
+window.switchTab = (evt, tabName) => app.switchTab(evt, tabName);
 window.loadFromURL = () => app.loadFromURL();
 window.updateFileName = () => app.updateFileName();
 window.loadFromFile = () => app.loadFromFile();
-window.selectRepoFile = (filePath) => app.selectRepoFile(filePath);
+window.selectRepoFile = (evt, filePath) => app.selectRepoFile(evt, filePath);
 window.loadFromRepo = () => app.loadFromRepo();

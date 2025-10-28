@@ -1,57 +1,31 @@
-/* ============================================
-   M3U8 Streaming Platform - Modern Tailwind Styles
-   Inspired by https://xtract.framer.ai/
-   ============================================ */
+/* M3U8 Streaming Platform - Custom Styles */
 
-/* ============================================
-   Custom Animations & Keyframes
-   ============================================ */
-
-/* Loading Spinner Animation */
+/* Animations */
 @keyframes spin {
-    to { 
-        transform: rotate(360deg); 
-    }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .loading-spinner {
     animation: spin 1s linear infinite;
 }
 
-/* Fade In Animation for Categories */
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(-10px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-/* Smooth Loading Page Transitions */
 #loadingPage.hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-/* ============================================
-   Category Components with Tailwind Classes
-   Base styles are handled by Tailwind classes in HTML
-   ============================================ */
-
-/* Category collapsed state */
+/* Category States */
 .category.collapsed .collapse-icon {
     transform: rotate(-90deg);
 }
 
-/* ============================================
-   Channel Grid & Cards
-   Base styles are handled by Tailwind classes in HTML
-   ============================================ */
-
+/* Channel Grid */
 .channels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -68,26 +42,15 @@
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     user-select: none;
-    -webkit-user-select: none;
 }
 
-/* ============================================
-   Modal Active States
-   ============================================ */
-
-.video-modal.active {
-    display: flex !important;
-}
-
-.playlist-modal.active {
-    display: flex !important;
-}
-
+/* Modal States */
+.video-modal.active,
+.playlist-modal.active,
 .loading-indicator.active {
-    display: block !important;
+    display: flex !important;
 }
 
-/* Tab Content Active State */
 .tab-content.active {
     display: block !important;
 }
@@ -97,16 +60,12 @@
     font-weight: 700;
 }
 
-/* Repo Item Selected State */
 .repo-item.selected {
     background: rgba(76, 175, 80, 0.5) !important;
     border: 2px solid #4CAF50 !important;
 }
 
-/* ============================================
-   Status Messages
-   ============================================ */
-
+/* Status Messages */
 .status-message {
     display: none;
 }
@@ -129,19 +88,7 @@
     display: block;
 }
 
-/* ============================================
-   No Results Message
-   ============================================ */
-
-.no-results.show {
-    display: block !important;
-}
-
-/* ============================================
-   Utility Classes for Smooth Interactions
-   ============================================ */
-
-/* Fix for h1 gradient text clipping */
+/* Title Fix */
 h1 {
     line-height: 1.2;
     overflow: visible;
@@ -154,7 +101,7 @@ h1 span {
     box-decoration-break: clone;
 }
 
-/* Line Clamp for Channel Names */
+/* Line Clamp Utility */
 .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -165,12 +112,7 @@ h1 span {
     word-break: break-word;
 }
 
-/* Smooth Scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Custom Scrollbar Styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -189,19 +131,13 @@ html {
     background: rgb(75, 85, 99);
 }
 
-/* Focus Visible for Accessibility */
+/* Focus & Selection */
 *:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.5);
 }
 
-/* Selection Styling */
 ::selection {
-    background: #0057FF;
-    color: white;
-}
-
-::-moz-selection {
     background: #0057FF;
     color: white;
 }

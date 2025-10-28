@@ -6,7 +6,7 @@
 // ====================================
 
 const CANALES_STREAMING = [
-    { name: "Big Buck Bunny - Demo", logo: "🐰", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", category: "Demo" }
+    { name: "Big Buck Bunny - Demo", logo: "assets/icons/favicon.svg", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", category: "demo" }
 ];
 
 // Legal notice
