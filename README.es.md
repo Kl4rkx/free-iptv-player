@@ -95,6 +95,7 @@ Abre http://localhost:8080 en tu navegador
 - **[Guía Completa](./docs/GUIA_COMPLETA.md)** - Documentación completa de características
 - **[Configuración IPTV](./docs/CONFIGURACION-IPTV.md)** - Configuración para apps de TV
 - **[Cargar Listas M3U](./docs/CARGAR-LISTAS-M3U.md)** - Cómo añadir listas M3U/M3U8
+- **[FAQ Técnico](./docs/FAQ-TECHNICAL.md)** - User Agent, HLS.js, solución de errores FFmpeg
 - **[Información Legal](./data/README-LEGAL.md)** - Cumplimiento legal y directrices
 - **[Registro de Cambios](./docs/CHANGELOG.md)** - Historial de versiones
 - **[Código de Conducta](./docs/CODE_OF_CONDUCT.md)** - Normas de la comunidad
@@ -105,6 +106,7 @@ Abre http://localhost:8080 en tu navegador
 - **[Complete Guide](./docs/COMPLETE-GUIDE.md)** - Full feature documentation
 - **[IPTV App Configuration](./docs/IPTV-APP-CONFIGURATION.md)** - Setup for Smart TV apps
 - **[Load M3U Playlists](./docs/LOAD-M3U-LISTS.md)** - How to import M3U/M3U8 lists
+- **[Technical FAQ](./docs/FAQ-TECHNICAL-EN.md)** - User Agent, HLS.js, FFmpeg troubleshooting
 
 ## 🤝 Contribuir
 
