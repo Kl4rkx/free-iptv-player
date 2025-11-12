@@ -70,13 +70,14 @@ node xtream-proxy.js
 ```
 Por defecto se inicia en el puerto 4000.
 
-### 3. Configurar la app web
+### 3. Usar en la app web
 
-En la pestaña Xtream Codes, pon como servidor:
-```
-http://localhost:4000/api/xtream
-```
-Y rellena usuario y contraseña. El backend se encargará de conectar con el servidor Xtream real.
+En la pestaña **Xtream Codes** de la aplicación:
+1. **Servidor:** Introduce la URL de tu servidor Xtream (ej: `http://tu-servidor.com:8080`)
+2. **Usuario:** Tu usuario Xtream
+3. **Contraseña:** Tu contraseña Xtream
+
+El proxy local (puerto 4000) se conectará automáticamente al servidor Xtream por ti, evitando problemas de CORS.
 
 ### 4. ¿Cómo funciona?
 - El backend recibe las credenciales Xtream por POST.

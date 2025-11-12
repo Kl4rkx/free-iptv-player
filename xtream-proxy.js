@@ -1,9 +1,9 @@
 // Backend proxy básico para Xtream Codes
 // Uso: node xtream-proxy.js
-// Requiere: npm install express node-fetch cors
+// Requiere: npm install express node-fetch@2 cors
 
 const express = require('express');
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
 
 const app = express();

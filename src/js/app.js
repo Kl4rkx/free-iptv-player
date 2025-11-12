@@ -501,12 +501,21 @@ class StreamingApp {
                 return;
             }
 
-            this.showStatus('xtreamStatus', '⏳ Conectando al proxy Xtream...', 'info');
+            this.showStatus('xtreamStatus', '⏳ Conectando al servidor Xtream...', 'info');
+            console.log('🔄 Intentando conectar a Xtream:', { server: xtreamServer, username: xtreamUser });
 
-            // URL del proxy local
-            const proxyUrl = 'http://localhost:4000/api/xtream';
+            // Detectar si estamos en producción (GitHub Pages) o desarrollo (localhost)
+            const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+            
+            // URL del proxy - usar Vercel en producción, localhost en desarrollo
+            const proxyUrl = isProduction 
+                ? 'https://free-iptv-player.vercel.app/api/xtream'  // Cambiar por tu URL de Vercel
+                : 'http://localhost:4000/api/xtream';
+
+            console.log('📡 Usando proxy:', proxyUrl);
 
             try {
+                // Verificar si el proxy está disponible
                 const res = await fetch(proxyUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -515,36 +524,60 @@ class StreamingApp {
                         username: xtreamUser,
                         password: xtreamPass
                     })
+                }).catch(err => {
+                    console.error('❌ Error de conexión al proxy:', err);
+                    if (isProduction) {
+                        throw new Error('No se pudo conectar al servidor proxy. Contacta al administrador.');
+                    } else {
+                        throw new Error('No se pudo conectar al proxy local (puerto 4000). ¿Está ejecutando "node xtream-proxy.js"?');
+                    }
                 });
 
+                console.log('📡 Respuesta del proxy:', res.status, res.statusText);
+
                 if (!res.ok) {
-                    const err = await res.json();
-                    throw new Error(err.error || 'Error al conectar con el proxy Xtream');
+                    let errorMsg = 'Error al conectar con el servidor Xtream';
+                    try {
+                        const err = await res.json();
+                        errorMsg = err.error || errorMsg;
+                        if (err.details) errorMsg += ` (${err.details})`;
+                    } catch (e) {
+                        const text = await res.text();
+                        console.error('❌ Error del servidor:', text);
+                    }
+                    throw new Error(errorMsg);
                 }
 
                 const contentType = res.headers.get('content-type');
+                console.log('📄 Tipo de contenido:', contentType);
+                
                 let loadedChannels = [];
                 if (contentType && contentType.includes('text/plain')) {
                     // Respuesta M3U
                     const m3u = await res.text();
+                    console.log('📝 M3U recibido, longitud:', m3u.length);
                     loadedChannels = this.playlistLoader.parseM3U(m3u, xtreamCategory);
+                    console.log('✅ Canales parseados desde M3U:', loadedChannels.length);
                 } else {
                     // Respuesta JSON
                     const data = await res.json();
+                    console.log('📦 JSON recibido:', data);
                     if (Array.isArray(data.channels)) {
                         loadedChannels = this.playlistLoader.parseXtreamJson(data.channels, xtreamCategory);
+                        console.log('✅ Canales parseados desde JSON:', loadedChannels.length);
                     } else {
                         throw new Error('Respuesta inesperada del proxy Xtream');
                     }
                 }
 
                 if (!loadedChannels.length) {
-                    this.showStatus('xtreamStatus', '❌ No se encontraron canales Xtream válidos. Verifica tus credenciales o el servidor.', 'error');
+                    this.showStatus('xtreamStatus', '❌ No se encontraron canales válidos. Verifica tus credenciales.', 'error');
                     this.hideLoadingScreen();
                     document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');
                     return;
                 }
 
+                console.log('🎉 Canales cargados exitosamente:', loadedChannels.length);
                 this.mergeChannels(loadedChannels);
                 this.showStatus('xtreamStatus', `✅ ${loadedChannels.length} canales cargados correctamente`, 'success');
                 document.getElementById('xtreamPass').value = '';
@@ -553,6 +586,7 @@ class StreamingApp {
                     this.hideLoadingScreen();
                 }, 2000);
             } catch (error) {
+                console.error('❌ Error completo:', error);
                 this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
                 this.hideLoadingScreen();
                 document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');

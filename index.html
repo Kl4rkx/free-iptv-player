@@ -362,11 +362,15 @@
 
             <!-- Tab: Xtream Codes -->
             <div class="tab-content hidden py-4" id="tab-xtream" role="tabpanel">
+                <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-4 text-sm">
+                    <p class="text-blue-300 mb-1">💡 <strong>Nota:</strong> Asegúrate de tener el proxy ejecutándose:</p>
+                    <code class="text-blue-200 bg-black/30 px-2 py-1 rounded">node xtream-proxy.js</code>
+                </div>
                 <div class="input-group mb-4">
-                    <label for="xtreamServer" class="block mb-2 font-semibold text-sm">Servidor (URL base):</label>
+                    <label for="xtreamServer" class="block mb-2 font-semibold text-sm">Servidor Xtream (URL completa):</label>
                     <input type="url" 
                            id="xtreamServer" 
-                           placeholder="https://mi-xtream-server.com:8080" 
+                           placeholder="http://ejemplo.com:8080" 
                            aria-label="Servidor Xtream"
                            class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
                 </div>
