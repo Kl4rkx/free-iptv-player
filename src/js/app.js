@@ -5,6 +5,7 @@
 
 import { VideoPlayer } from './player.js';
 import { PlaylistLoader } from './playlist-loader.js';
+import { CONFIG } from './config.js';
 
 class StreamingApp {
     constructor() {
@@ -504,15 +505,11 @@ class StreamingApp {
             this.showStatus('xtreamStatus', '⏳ Conectando al servidor Xtream...', 'info');
             console.log('🔄 Intentando conectar a Xtream:', { server: xtreamServer, username: xtreamUser });
 
-            // Detectar si estamos en producción (GitHub Pages) o desarrollo (localhost)
-            const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-            
-            // URL del proxy - usar Vercel en producción, localhost en desarrollo
-            const proxyUrl = isProduction 
-                ? 'https://free-iptv-player.vercel.app/api/xtream'  // Cambiar por tu URL de Vercel
-                : 'http://localhost:4000/api/xtream';
+            // Obtener URL del proxy según el entorno
+            const proxyUrl = CONFIG.getProxyUrl();
+            const isProduction = CONFIG.isProduction();
 
-            console.log('📡 Usando proxy:', proxyUrl);
+            console.log('📡 Usando proxy:', proxyUrl, isProduction ? '(Producción)' : '(Desarrollo)');
 
             try {
                 // Verificar si el proxy está disponible

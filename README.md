@@ -52,40 +52,73 @@ All demo content is legally available and properly licensed.
 
 ## 🚀 Quick Start
 
-## 🛰️ Xtream Codes Backend Proxy (Opcional)
+## 🛰️ Xtream Codes Backend Proxy
 
-Para cargar listas Xtream Codes desde la app web, necesitas un backend proxy local que evite el bloqueo CORS.
+Para cargar listas Xtream Codes, necesitas un backend proxy que evite el bloqueo CORS.
 
-### 1. Instalar dependencias
+### 🌐 Opción 1: Desplegar en Vercel (Producción - Recomendado)
+
+1. **Desplegar el proyecto en Vercel**:
+```bash
+cd free-iptv-player
+vercel --prod
+```
+   O importa el repositorio directamente desde [vercel.com](https://vercel.com)
+
+2. **Configurar GitHub Secret** 🔐:
+   - Ve a tu repositorio en GitHub
+   - **Settings** → **Secrets and variables** → **Actions**
+   - **New repository secret**:
+     - Name: `VERCEL_PROXY_URL`
+     - Value: `https://tu-proyecto.vercel.app/api/xtream`
+   - Click **Add secret**
+
+3. **Hacer push** - GitHub Actions desplegará automáticamente con la configuración
+
+📖 **Guía detallada:** [docs/GITHUB-SECRETS.md](./docs/GITHUB-SECRETS.md)
+
+---
+
+### 💻 Opción 2: Proxy Local (Desarrollo)
+
+Para desarrollo local:
+
+#### 1. Instalar dependencias
 
 ```bash
 cd free-iptv-player
-npm install express node-fetch cors
+npm install express node-fetch@2 cors
 ```
 
-### 2. Ejecutar el backend
+#### 2. Ejecutar el backend
 
 ```bash
 node xtream-proxy.js
 ```
 Por defecto se inicia en el puerto 4000.
 
-### 3. Usar en la app web
+#### 3. Usar en la app web
 
 En la pestaña **Xtream Codes** de la aplicación:
 1. **Servidor:** Introduce la URL de tu servidor Xtream (ej: `http://tu-servidor.com:8080`)
 2. **Usuario:** Tu usuario Xtream
 3. **Contraseña:** Tu contraseña Xtream
 
-El proxy local (puerto 4000) se conectará automáticamente al servidor Xtream por ti, evitando problemas de CORS.
+El proxy se conectará automáticamente al servidor Xtream por ti, evitando problemas de CORS.
 
-### 4. ¿Cómo funciona?
-- El backend recibe las credenciales Xtream por POST.
-- Descarga la lista M3U o los canales en JSON y los devuelve a la app web.
-- Así evitas el bloqueo CORS y puedes cargar canales Xtream desde cualquier navegador.
+---
 
-### 5. Personalización
-Cada usuario puede ejecutar su propio backend local o en un servidor propio. No se almacenan credenciales ni datos privados.
+### 📝 Cómo funciona
+
+- **Desarrollo (localhost):** Usa el proxy local en puerto 4000
+- **Producción (GitHub Pages):** Usa el proxy desplegado en Vercel
+- El backend recibe las credenciales Xtream por POST
+- Descarga la lista M3U o los canales en JSON y los devuelve a la app web
+- Así evitas el bloqueo CORS desde cualquier navegador
+
+### 🔒 Seguridad
+
+No se almacenan credenciales ni datos privados. Cada usuario ejecuta su propio proxy.
 
 ---
 
