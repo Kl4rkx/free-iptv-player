@@ -4,6 +4,7 @@
  */
 
 import { M3UParser } from './m3u-parser.js';
+import { Xtream } from './xtream.js';
 
 export class PlaylistLoader {
     constructor(onChannelsLoaded) {
@@ -118,6 +119,36 @@ export class PlaylistLoader {
             return { success: true, count: newChannels.length };
         } catch (error) {
             console.error('Error al cargar desde repositorio:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Carga lista desde credenciales Xtream Codes
+     * @param {string} server
+     * @param {string} username
+     * @param {string} password
+     * @param {string} defaultCategory
+     */
+    async loadFromXtream(server, username, password, defaultCategory = 'general') {
+        try {
+            const newChannels = await Xtream.getChannels(server, username, password, defaultCategory);
+
+            if (!Array.isArray(newChannels) || newChannels.length === 0) {
+                throw new Error('No se encontraron canales en el servidor Xtream');
+            }
+
+            this.loadedChannels.push(...newChannels);
+            this.onChannelsLoaded(this.loadedChannels);
+
+            return { success: true, count: newChannels.length };
+        } catch (error) {
+            console.error('Error al cargar desde Xtream:', error);
+
+            if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                throw new Error('No se pudo conectar con el servidor Xtream. Verifica la URL y CORS.');
+            }
+
             throw error;
         }
     }

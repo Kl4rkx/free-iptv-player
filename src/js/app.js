@@ -490,6 +490,36 @@ class StreamingApp {
         }
     }
 
+        async loadFromXtream() {
+            const server = document.getElementById('xtreamServer').value.trim();
+            const user = document.getElementById('xtreamUser').value.trim();
+            const pass = document.getElementById('xtreamPass').value.trim();
+            const category = document.getElementById('xtreamCategory').value.trim() || 'general';
+
+            if (!server || !user || !pass) {
+                this.showStatus('xtreamStatus', '⚠️ Completa servidor, usuario y contraseña', 'error');
+                return;
+            }
+
+            this.showStatus('xtreamStatus', '⏳ Conectando al servidor Xtream...', 'info');
+
+            try {
+                const result = await this.playlistLoader.loadFromXtream(server, user, pass, category);
+                this.showStatus('xtreamStatus', `✅ ${result.count} canales cargados correctamente`, 'success');
+                // Limpiar campos por seguridad (no guardar credenciales)
+                document.getElementById('xtreamPass').value = '';
+                setTimeout(() => this.closePlaylistModal(), 2000);
+            } catch (error) {
+                console.error('Error loading from Xtream:', error);
+                // Mensaje más descriptivo para CORS
+                if (error.message && error.message.toLowerCase().includes('cors')) {
+                    this.showStatus('xtreamStatus', `❌ Error de conexión/CORS: ${error.message}`, 'error');
+                } else {
+                    this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
+                }
+            }
+        }
+
     mergeChannels(loadedChannels) {
         // Combinar canales originales con los cargados dinámicamente
         const originalChannels = typeof CANALES_STREAMING !== 'undefined' ? this.sanitizeChannels(CANALES_STREAMING) : [];
@@ -611,3 +641,4 @@ window.updateFileName = () => app.updateFileName();
 window.loadFromFile = () => app.loadFromFile();
 window.selectRepoFile = (evt, filePath) => app.selectRepoFile(evt, filePath);
 window.loadFromRepo = () => app.loadFromRepo();
+window.loadFromXtream = () => app.loadFromXtream();

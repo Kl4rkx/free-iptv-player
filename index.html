@@ -251,6 +251,12 @@
                         aria-selected="false">
                     📂 Repositorio
                 </button>
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                        onclick="switchTab(event, 'xtream')" 
+                        role="tab" 
+                        aria-selected="false">
+                    🔑 Xtream Codes
+                </button>
             </div>
 
             <!-- Tab: From URL -->
@@ -352,6 +358,38 @@
                     ⬇️ Cargar lista seleccionada
                 </button>
                 <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="repoStatus" role="status"></div>
+            </div>
+
+            <!-- Tab: Xtream Codes -->
+            <div class="tab-content hidden py-4" id="tab-xtream" role="tabpanel">
+                <div class="input-group mb-4">
+                    <label for="xtreamServer" class="block mb-2 font-semibold text-sm">Servidor (URL base):</label>
+                    <input type="url" 
+                           id="xtreamServer" 
+                           placeholder="https://mi-xtream-server.com:8080" 
+                           aria-label="Servidor Xtream"
+                           class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                </div>
+                <div class="input-group mb-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="xtreamUser" class="block mb-2 font-semibold text-sm">Usuario:</label>
+                        <input type="text" id="xtreamUser" placeholder="usuario" aria-label="Usuario Xtream" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                    </div>
+                    <div>
+                        <label for="xtreamPass" class="block mb-2 font-semibold text-sm">Contraseña:</label>
+                        <input type="password" id="xtreamPass" placeholder="contraseña" aria-label="Contraseña Xtream" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="input-group mb-5">
+                    <label for="xtreamCategory" class="block mb-2 font-semibold text-sm">Categoría por defecto (opcional):</label>
+                    <input type="text" id="xtreamCategory" placeholder="Ej: deportes, peliculas..." aria-label="Categoría por defecto" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                </div>
+                <button class="load-btn w-full px-6 py-4 bg-purple-600 hover:bg-purple-700 border-none text-white rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 mt-3" 
+                        onclick="loadFromXtream()" 
+                        aria-label="Cargar desde Xtream">
+                    🔑 Conectar y Cargar desde Xtream
+                </button>
+                <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="xtreamStatus" role="status"></div>
             </div>
         </div>
     </div>
