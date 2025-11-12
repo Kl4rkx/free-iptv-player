@@ -52,6 +52,42 @@ All demo content is legally available and properly licensed.
 
 ## 🚀 Quick Start
 
+## 🛰️ Xtream Codes Backend Proxy (Opcional)
+
+Para cargar listas Xtream Codes desde la app web, necesitas un backend proxy local que evite el bloqueo CORS.
+
+### 1. Instalar dependencias
+
+```bash
+cd free-iptv-player
+npm install express node-fetch cors
+```
+
+### 2. Ejecutar el backend
+
+```bash
+node xtream-proxy.js
+```
+Por defecto se inicia en el puerto 4000.
+
+### 3. Configurar la app web
+
+En la pestaña Xtream Codes, pon como servidor:
+```
+http://localhost:4000/api/xtream
+```
+Y rellena usuario y contraseña. El backend se encargará de conectar con el servidor Xtream real.
+
+### 4. ¿Cómo funciona?
+- El backend recibe las credenciales Xtream por POST.
+- Descarga la lista M3U o los canales en JSON y los devuelve a la app web.
+- Así evitas el bloqueo CORS y puedes cargar canales Xtream desde cualquier navegador.
+
+### 5. Personalización
+Cada usuario puede ejecutar su propio backend local o en un servidor propio. No se almacenan credenciales ni datos privados.
+
+---
+
 ### ⚡ Instant Start (Easiest)
 
 **Windows:**
