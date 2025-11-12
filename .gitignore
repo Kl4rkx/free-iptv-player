@@ -69,3 +69,5 @@ cache/
 # Build outputs
 dist/
 build/
+
+.vercel
