@@ -1,3 +1,35 @@
+    /**
+     * Parsea M3U recibido del proxy Xtream
+     */
+    // Parsea M3U recibido del proxy Xtream
+    // Parsea M3U recibido del proxy Xtream
+    parseM3U(content, defaultCategory) {
+        return M3UParser.parse(content, defaultCategory);
+    }
+
+    // Parsea JSON Xtream (player_api.php)
+    parseXtreamJson(jsonChannels, defaultCategory) {
+        if (!Array.isArray(jsonChannels)) return [];
+        return jsonChannels.map(function(item) {
+            var name = item.name || item.stream_name || item.title || ('Canal ' + (item.stream_id || item.id || ''));
+            var logo = item.stream_icon || item.logo || 'assets/icons/favicon.svg';
+            var category = (item.category && item.category.name) ? item.category.name : (item.category_name || defaultCategory);
+            var streamId = item.stream_id || item.id || '';
+            // Construir URL reproducible
+            var url = '';
+            if (item.url) {
+                url = item.url;
+            } else if (streamId) {
+                url = (item.server || '') + '/live/' + (item.username || '') + '/' + (item.password || '') + '/' + streamId + '.m3u8';
+            }
+            return {
+                name: name,
+                url: url,
+                logo: logo,
+                category: (category || defaultCategory).toLowerCase().trim()
+            };
+        });
+    }
 /**
  * Playlist Loader
  * Maneja la carga de listas M3U/M3U8 desde múltiples fuentes

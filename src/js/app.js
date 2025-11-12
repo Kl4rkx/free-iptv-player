@@ -491,32 +491,63 @@ class StreamingApp {
     }
 
         async loadFromXtream() {
-            const server = document.getElementById('xtreamServer').value.trim();
-            const user = document.getElementById('xtreamUser').value.trim();
-            const pass = document.getElementById('xtreamPass').value.trim();
-            const category = document.getElementById('xtreamCategory').value.trim() || 'general';
+            const xtreamServer = document.getElementById('xtreamServer').value.trim(); // URL Xtream real
+            const xtreamUser = document.getElementById('xtreamUser').value.trim();
+            const xtreamPass = document.getElementById('xtreamPass').value.trim();
+            const xtreamCategory = document.getElementById('xtreamCategory').value.trim() || 'general';
 
-            if (!server || !user || !pass) {
+            if (!xtreamServer || !xtreamUser || !xtreamPass) {
                 this.showStatus('xtreamStatus', '⚠️ Completa servidor, usuario y contraseña', 'error');
                 return;
             }
 
-            this.showStatus('xtreamStatus', '⏳ Conectando al servidor Xtream...', 'info');
+            this.showStatus('xtreamStatus', '⏳ Conectando al proxy Xtream...', 'info');
+
+            // URL del proxy local
+            const proxyUrl = 'http://localhost:4000/api/xtream';
 
             try {
-                const result = await this.playlistLoader.loadFromXtream(server, user, pass, category);
-                this.showStatus('xtreamStatus', `✅ ${result.count} canales cargados correctamente`, 'success');
-                // Limpiar campos por seguridad (no guardar credenciales)
+                const res = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server: xtreamServer,
+                        username: xtreamUser,
+                        password: xtreamPass
+                    })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.error || 'Error al conectar con el proxy Xtream');
+                }
+
+                const contentType = res.headers.get('content-type');
+                let loadedChannels = [];
+                if (contentType && contentType.includes('text/plain')) {
+                    // Respuesta M3U
+                    const m3u = await res.text();
+                    loadedChannels = this.playlistLoader.parseM3U(m3u, xtreamCategory);
+                } else {
+                    // Respuesta JSON
+                    const data = await res.json();
+                    if (Array.isArray(data.channels)) {
+                        loadedChannels = this.playlistLoader.parseXtreamJson(data.channels, xtreamCategory);
+                    } else {
+                        throw new Error('Respuesta inesperada del proxy Xtream');
+                    }
+                }
+
+                if (!loadedChannels.length) {
+                    throw new Error('No se encontraron canales Xtream válidos');
+                }
+
+                this.mergeChannels(loadedChannels);
+                this.showStatus('xtreamStatus', `✅ ${loadedChannels.length} canales cargados correctamente`, 'success');
                 document.getElementById('xtreamPass').value = '';
                 setTimeout(() => this.closePlaylistModal(), 2000);
             } catch (error) {
-                console.error('Error loading from Xtream:', error);
-                // Mensaje más descriptivo para CORS
-                if (error.message && error.message.toLowerCase().includes('cors')) {
-                    this.showStatus('xtreamStatus', `❌ Error de conexión/CORS: ${error.message}`, 'error');
-                } else {
-                    this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
-                }
+                this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
             }
         }
 
