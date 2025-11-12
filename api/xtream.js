@@ -25,7 +25,10 @@ export default async function handler(req, res) {
     // Normalize URL
     let base = server.trim();
     if (!/^https?:\/\//i.test(base)) base = 'http://' + base;
-    base = base.replace(/\/+$/g, '');
+    // Remove trailing slashes safely (avoid ReDoS)
+    while (base.endsWith('/')) {
+        base = base.slice(0, -1);
+    }
 
     try {
         // 1) Try get.php (M3U)

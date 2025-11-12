@@ -24,8 +24,11 @@ export class Xtream {
         if (!/^https?:\/\//i.test(url)) {
             url = 'http://' + url;
         }
-        // Eliminar barra final
-        return url.replace(/\/+$/g, '');
+        // Eliminar barra final de forma segura (evitar ReDoS)
+        while (url.endsWith('/')) {
+            url = url.slice(0, -1);
+        }
+        return url;
     }
 
     /**
