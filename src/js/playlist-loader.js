@@ -1,13 +1,27 @@
+/**
+ * Playlist Loader
+ * Maneja la carga de listas M3U/M3U8 desde múltiples fuentes
+ */
+
+import { M3UParser } from './m3u-parser.js';
+import { Xtream } from './xtream.js';
+
+export class PlaylistLoader {
+    constructor(onChannelsLoaded) {
+        this.onChannelsLoaded = onChannelsLoaded;
+        this.loadedChannels = [];
+    }
+
     /**
      * Parsea M3U recibido del proxy Xtream
      */
-    // Parsea M3U recibido del proxy Xtream
-    // Parsea M3U recibido del proxy Xtream
     parseM3U(content, defaultCategory) {
         return M3UParser.parse(content, defaultCategory);
     }
 
-    // Parsea JSON Xtream (player_api.php)
+    /**
+     * Parsea JSON Xtream (player_api.php)
+     */
     parseXtreamJson(jsonChannels, defaultCategory) {
         if (!Array.isArray(jsonChannels)) return [];
         return jsonChannels.map(function(item) {
@@ -29,19 +43,6 @@
                 category: (category || defaultCategory).toLowerCase().trim()
             };
         });
-    }
-/**
- * Playlist Loader
- * Maneja la carga de listas M3U/M3U8 desde múltiples fuentes
- */
-
-import { M3UParser } from './m3u-parser.js';
-import { Xtream } from './xtream.js';
-
-export class PlaylistLoader {
-    constructor(onChannelsLoaded) {
-        this.onChannelsLoaded = onChannelsLoaded;
-        this.loadedChannels = [];
     }
 
     /**
