@@ -539,15 +539,23 @@ class StreamingApp {
                 }
 
                 if (!loadedChannels.length) {
-                    throw new Error('No se encontraron canales Xtream válidos');
+                    this.showStatus('xtreamStatus', '❌ No se encontraron canales Xtream válidos. Verifica tus credenciales o el servidor.', 'error');
+                    this.hideLoadingScreen();
+                    document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');
+                    return;
                 }
 
                 this.mergeChannels(loadedChannels);
                 this.showStatus('xtreamStatus', `✅ ${loadedChannels.length} canales cargados correctamente`, 'success');
                 document.getElementById('xtreamPass').value = '';
-                setTimeout(() => this.closePlaylistModal(), 2000);
+                setTimeout(() => {
+                    this.closePlaylistModal();
+                    this.hideLoadingScreen();
+                }, 2000);
             } catch (error) {
                 this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
+                this.hideLoadingScreen();
+                document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');
             }
         }
 
