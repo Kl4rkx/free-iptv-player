@@ -255,12 +255,17 @@ class StreamingApp {
                 <button class="play-button bg-green-500 hover:bg-green-600 text-white border-none px-5 py-2.5 rounded-full cursor-pointer text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50">▶ Ver</button>
             `;
             card.addEventListener('click', () => {
-                // Bloquear reproducción HTTP en contexto HTTPS para evitar Mixed Content
+                // Convertir URLs HTTP a HTTPS mediante proxy cuando estamos en HTTPS
+                let playUrl = channel.url;
                 if (location.protocol === 'https:' && channel.url && channel.url.startsWith('http://')) {
-                    alert('Este canal usa HTTP y está bloqueado en HTTPS. Intenta abrir el sitio por HTTP o usa una fuente HTTPS.');
-                    return;
+                    // Usar proxy de Vercel para convertir HTTP → HTTPS
+                    const proxyBase = CONFIG.isProduction() && CONFIG.isVercel() 
+                        ? `${window.location.origin}/api/stream`
+                        : CONFIG.getProxyUrl().replace('/api/xtream', '/api/stream');
+                    playUrl = `${proxyBase}?url=${encodeURIComponent(channel.url)}`;
+                    console.log('🔒 Usando proxy HTTPS para stream HTTP:', playUrl);
                 }
-                this.player.play(channel.url, channel.name);
+                this.player.play(playUrl, channel.name);
             });
             container.appendChild(card);
         });
