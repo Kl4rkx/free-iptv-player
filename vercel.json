@@ -1,15 +1,14 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/xtream.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
+  "buildCommand": "echo Skipping build (static site)",
+  "installCommand": "echo No install step",
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    }
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
