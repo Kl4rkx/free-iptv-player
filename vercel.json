@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/**/*.js", "use": "@vercel/node" }
-  ],
+  "functions": {
+    "api/xtream.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/(.*)", "dest": "/$1" }
