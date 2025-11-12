@@ -5,6 +5,7 @@
 
 import { VideoPlayer } from './player.js';
 import { PlaylistLoader } from './playlist-loader.js';
+import { CONFIG } from './config.js';
 
 class StreamingApp {
     constructor() {
@@ -490,6 +491,105 @@ class StreamingApp {
         }
     }
 
+        async loadFromXtream() {
+            const xtreamServer = document.getElementById('xtreamServer').value.trim(); // URL Xtream real
+            const xtreamUser = document.getElementById('xtreamUser').value.trim();
+            const xtreamPass = document.getElementById('xtreamPass').value.trim();
+            const xtreamCategory = document.getElementById('xtreamCategory').value.trim() || 'general';
+
+            if (!xtreamServer || !xtreamUser || !xtreamPass) {
+                this.showStatus('xtreamStatus', '⚠️ Completa servidor, usuario y contraseña', 'error');
+                return;
+            }
+
+            this.showStatus('xtreamStatus', '⏳ Conectando al servidor Xtream...', 'info');
+            console.log('🔄 Intentando conectar a Xtream:', { server: xtreamServer, username: xtreamUser });
+
+            // Obtener URL del proxy según el entorno
+            const proxyUrl = CONFIG.getProxyUrl();
+            const isProduction = CONFIG.isProduction();
+
+            console.log('📡 Usando proxy:', proxyUrl, isProduction ? '(Producción)' : '(Desarrollo)');
+
+            try {
+                // Verificar si el proxy está disponible
+                const res = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server: xtreamServer,
+                        username: xtreamUser,
+                        password: xtreamPass
+                    })
+                }).catch(err => {
+                    console.error('❌ Error de conexión al proxy:', err);
+                    if (isProduction) {
+                        throw new Error('No se pudo conectar al servidor proxy. Contacta al administrador.');
+                    } else {
+                        throw new Error('No se pudo conectar al proxy local (puerto 4000). ¿Está ejecutando "node xtream-proxy.js"?');
+                    }
+                });
+
+                console.log('📡 Respuesta del proxy:', res.status, res.statusText);
+
+                if (!res.ok) {
+                    let errorMsg = 'Error al conectar con el servidor Xtream';
+                    try {
+                        const err = await res.json();
+                        errorMsg = err.error || errorMsg;
+                        if (err.details) errorMsg += ` (${err.details})`;
+                    } catch (e) {
+                        const text = await res.text();
+                        console.error('❌ Error del servidor:', text);
+                    }
+                    throw new Error(errorMsg);
+                }
+
+                const contentType = res.headers.get('content-type');
+                console.log('📄 Tipo de contenido:', contentType);
+                
+                let loadedChannels = [];
+                if (contentType && contentType.includes('text/plain')) {
+                    // Respuesta M3U
+                    const m3u = await res.text();
+                    console.log('📝 M3U recibido, longitud:', m3u.length);
+                    loadedChannels = this.playlistLoader.parseM3U(m3u, xtreamCategory);
+                    console.log('✅ Canales parseados desde M3U:', loadedChannels.length);
+                } else {
+                    // Respuesta JSON
+                    const data = await res.json();
+                    console.log('📦 JSON recibido:', data);
+                    if (Array.isArray(data.channels)) {
+                        loadedChannels = this.playlistLoader.parseXtreamJson(data.channels, xtreamCategory);
+                        console.log('✅ Canales parseados desde JSON:', loadedChannels.length);
+                    } else {
+                        throw new Error('Respuesta inesperada del proxy Xtream');
+                    }
+                }
+
+                if (!loadedChannels.length) {
+                    this.showStatus('xtreamStatus', '❌ No se encontraron canales válidos. Verifica tus credenciales.', 'error');
+                    this.hideLoadingScreen();
+                    document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');
+                    return;
+                }
+
+                console.log('🎉 Canales cargados exitosamente:', loadedChannels.length);
+                this.mergeChannels(loadedChannels);
+                this.showStatus('xtreamStatus', `✅ ${loadedChannels.length} canales cargados correctamente`, 'success');
+                document.getElementById('xtreamPass').value = '';
+                setTimeout(() => {
+                    this.closePlaylistModal();
+                    this.hideLoadingScreen();
+                }, 2000);
+            } catch (error) {
+                console.error('❌ Error completo:', error);
+                this.showStatus('xtreamStatus', `❌ Error: ${error.message}`, 'error');
+                this.hideLoadingScreen();
+                document.getElementById('xtreamErrorBackBtn').classList.remove('hidden');
+            }
+        }
+
     mergeChannels(loadedChannels) {
         // Combinar canales originales con los cargados dinámicamente
         const originalChannels = typeof CANALES_STREAMING !== 'undefined' ? this.sanitizeChannels(CANALES_STREAMING) : [];
@@ -611,3 +711,4 @@ window.updateFileName = () => app.updateFileName();
 window.loadFromFile = () => app.loadFromFile();
 window.selectRepoFile = (evt, filePath) => app.selectRepoFile(evt, filePath);
 window.loadFromRepo = () => app.loadFromRepo();
+window.loadFromXtream = () => app.loadFromXtream();

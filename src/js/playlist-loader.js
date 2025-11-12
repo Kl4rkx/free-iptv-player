@@ -4,11 +4,45 @@
  */
 
 import { M3UParser } from './m3u-parser.js';
+import { Xtream } from './xtream.js';
 
 export class PlaylistLoader {
     constructor(onChannelsLoaded) {
         this.onChannelsLoaded = onChannelsLoaded;
         this.loadedChannels = [];
+    }
+
+    /**
+     * Parsea M3U recibido del proxy Xtream
+     */
+    parseM3U(content, defaultCategory) {
+        return M3UParser.parse(content, defaultCategory);
+    }
+
+    /**
+     * Parsea JSON Xtream (player_api.php)
+     */
+    parseXtreamJson(jsonChannels, defaultCategory) {
+        if (!Array.isArray(jsonChannels)) return [];
+        return jsonChannels.map(function(item) {
+            var name = item.name || item.stream_name || item.title || ('Canal ' + (item.stream_id || item.id || ''));
+            var logo = item.stream_icon || item.logo || 'assets/icons/favicon.svg';
+            var category = (item.category && item.category.name) ? item.category.name : (item.category_name || defaultCategory);
+            var streamId = item.stream_id || item.id || '';
+            // Construir URL reproducible
+            var url = '';
+            if (item.url) {
+                url = item.url;
+            } else if (streamId) {
+                url = (item.server || '') + '/live/' + (item.username || '') + '/' + (item.password || '') + '/' + streamId + '.m3u8';
+            }
+            return {
+                name: name,
+                url: url,
+                logo: logo,
+                category: (category || defaultCategory).toLowerCase().trim()
+            };
+        });
     }
 
     /**
@@ -118,6 +152,36 @@ export class PlaylistLoader {
             return { success: true, count: newChannels.length };
         } catch (error) {
             console.error('Error al cargar desde repositorio:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Carga lista desde credenciales Xtream Codes
+     * @param {string} server
+     * @param {string} username
+     * @param {string} password
+     * @param {string} defaultCategory
+     */
+    async loadFromXtream(server, username, password, defaultCategory = 'general') {
+        try {
+            const newChannels = await Xtream.getChannels(server, username, password, defaultCategory);
+
+            if (!Array.isArray(newChannels) || newChannels.length === 0) {
+                throw new Error('No se encontraron canales en el servidor Xtream');
+            }
+
+            this.loadedChannels.push(...newChannels);
+            this.onChannelsLoaded(this.loadedChannels);
+
+            return { success: true, count: newChannels.length };
+        } catch (error) {
+            console.error('Error al cargar desde Xtream:', error);
+
+            if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                throw new Error('No se pudo conectar con el servidor Xtream. Verifica la URL y CORS.');
+            }
+
             throw error;
         }
     }

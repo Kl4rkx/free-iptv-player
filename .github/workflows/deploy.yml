@@ -24,6 +24,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Inject Vercel Proxy URL
+        run: |
+          # Crear archivo de configuración runtime con la URL del secret
+          cat > public/config.js << EOF
+          // Runtime configuration injected by GitHub Actions
+          window.__VERCEL_PROXY_URL__ = '${{ secrets.VERCEL_PROXY_URL }}';
+          EOF
+          echo "✅ Configuration injected"
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
