@@ -8,6 +8,52 @@
     }
 }
 
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    position: relative;
+}
+
+/* Mobile Safari Viewport Fix */
+html {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Safari video playback fix */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari Smooth Scrolling */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile Touch Improvements */
+button, a, input, select, textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-touch-callout: none;
+    /* Ensure minimum tap target size (iOS HIG: 44x44px) */
+    min-height: 44px;
+}
+
+/* Prevent iOS Zoom on Input Focus */
+input, select, textarea {
+    font-size: 16px !important;
+}
+
+/* Safari Video Element Fixes */
+video {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* Enable native fullscreen on iOS */
+    -webkit-playsinline: true;
+    webkit-playsinline: true;
+}
+
 /* Animations */
 @keyframes spin {
     to { transform: rotate(360deg); }
@@ -38,18 +84,50 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     animation: fadeIn 0.4s ease-in-out;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
+/* Mobile Responsive Grid */
 @media (max-width: 640px) {
     .channels-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+        padding: 1rem !important;
     }
+}
+
+/* Small Mobile (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+        padding: 0.75rem !important;
+    }
+}
+
+/* Tabs Horizontal Scroll for Mobile */
+.tabs-container {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.tabs-container::-webkit-scrollbar {
+    display: none;
 }
 
 .channel-card {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     user-select: none;
+    /* Safari Hardware Acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    /* Prevent card overflow */
+    max-width: 100%;
+    overflow: hidden;
 }
 
 /* Modal States */
@@ -118,6 +196,22 @@ h1 span {
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
+}
+
+/* Prevent text overflow globally */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container constraints */
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Scrollbar */

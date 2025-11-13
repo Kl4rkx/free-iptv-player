@@ -79,7 +79,7 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white overflow-x-hidden">
     <!-- Loading Screen -->
     <div id="loadingPage" class="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col justify-center items-center z-[10000] transition-all duration-500">
         <div class="loading-spinner w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full"></div>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 lg:py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 lg:py-12 w-full overflow-x-hidden">
         <!-- Header -->
         <header class="mb-12 lg:mb-16">
             <!-- Top Bar with Language Switcher and Parental Control -->
@@ -220,8 +220,8 @@
          id="playlistModal" 
          role="dialog" 
          aria-modal="true" 
-         aria-label="Load channel playlist">
-        <div class="playlist-content bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
+         aria-label="Load channel list">
+        <div class="playlist-content bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 sm:p-8 p-4 w-full max-w-2xl sm:max-w-2xl max-w-[95vw] max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
             <div class="playlist-header flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold">📥 Load Channel Playlist</h2>
                 <button class="playlist-close bg-white/10 hover:bg-white/20 border-none text-white text-2xl cursor-pointer w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:rotate-90" 
@@ -232,24 +232,30 @@
             </div>
 
             <!-- Tabs -->
-            <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2" role="tablist">
-                <button class="tab-btn active flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+            <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2 overflow-x-auto" role="tablist">
+                <button class="tab-btn active flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap" 
                         onclick="switchTab(event, 'url')" 
                         role="tab" 
                         aria-selected="true">
                     🌐 From URL
                 </button>
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap" 
                         onclick="switchTab(event, 'file')" 
                         role="tab" 
                         aria-selected="false">
                     📁 Local File
                 </button>
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap" 
                         onclick="switchTab(event, 'repo')" 
                         role="tab" 
                         aria-selected="false">
                     📂 Repository
+                </button>
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap" 
+                        onclick="switchTab(event, 'xtream')" 
+                        role="tab" 
+                        aria-selected="false">
+                    🔑 Xtream Codes
                 </button>
             </div>
 
@@ -352,6 +358,45 @@
                     ⬇️ Load selected playlist
                 </button>
                 <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="repoStatus" role="status"></div>
+            </div>
+
+            <!-- Tab: Xtream Codes -->
+            <div class="tab-content hidden py-4" id="tab-xtream" role="tabpanel">
+                <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-4 text-sm">
+                    <p class="text-blue-300 mb-1">💡 <strong>Note:</strong> Make sure the proxy is running:</p>
+                    <code class="text-blue-200 bg-black/30 px-2 py-1 rounded">node xtream-proxy.js</code>
+                </div>
+                <div class="input-group mb-4">
+                    <label for="xtreamServer" class="block mb-2 font-semibold text-sm">Xtream Server (full URL):</label>
+                    <input type="url" 
+                           id="xtreamServer" 
+                           placeholder="http://example.com:8080" 
+                           aria-label="Xtream Server"
+                           class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                </div>
+                <div class="input-group mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="xtreamUser" class="block mb-2 font-semibold text-sm">Username:</label>
+                        <input type="text" id="xtreamUser" placeholder="username" aria-label="Xtream Username" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                    </div>
+                    <div>
+                        <label for="xtreamPass" class="block mb-2 font-semibold text-sm">Password:</label>
+                        <input type="password" id="xtreamPass" placeholder="password" aria-label="Xtream Password" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="input-group mb-5">
+                    <label for="xtreamCategory" class="block mb-2 font-semibold text-sm">Default category (optional):</label>
+                    <input type="text" id="xtreamCategory" placeholder="e.g: sports, movies..." aria-label="Default category" class="w-full px-4 py-3 border-2 border-white/20 rounded-lg bg-white/10 text-white text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300">
+                </div>
+                <button class="load-btn w-full px-6 py-4 bg-purple-600 hover:bg-purple-700 border-none text-white rounded-lg cursor-pointer text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 mt-3" 
+                        onclick="loadFromXtream()" 
+                        aria-label="Connect and load from Xtream">
+                    🔑 Connect and Load from Xtream
+                </button>
+                <div class="status-message rounded-lg p-3 mt-3 text-center hidden" id="xtreamStatus" role="status"></div>
+                <div class="flex justify-center mt-2">
+                    <button id="xtreamErrorBackBtn" class="hidden px-5 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg font-semibold transition-all duration-300" onclick="closePlaylistModal();app.hideLoadingScreen();">Back</button>
+                </div>
             </div>
         </div>
     </div>

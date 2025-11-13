@@ -50,6 +50,26 @@ La demo en vivo incluye **canales 100% legales**:
 
 Todo el contenido demo es legalmente disponible y con licencia apropiada.
 
+## 📚 Documentación
+
+### Español
+- 📘 [Guía Completa](./docs/GUIA_COMPLETA.md)
+- 🚀 [Guía de Despliegue](./docs/DEPLOYMENT.md)
+- 🔐 [Configuración de Secrets](./docs/GITHUB-SECRETS.md)
+- 📥 [Cargar Listas M3U](./docs/CARGAR-LISTAS-M3U.md)
+- 📱 [Configuración IPTV](./docs/CONFIGURACION-IPTV.md)
+- 📺 [Guía TV](./docs/GUIA-TV.md)
+
+### English
+- 📘 [Complete Guide](./docs/COMPLETE-GUIDE.md)
+- 🚀 [Deployment Guide](./docs/DEPLOYMENT-EN.md)
+- 🔐 [GitHub Secrets Configuration](./docs/GITHUB-SECRETS-EN.md)
+- 📥 [Load M3U Lists](./docs/LOAD-M3U-LISTS.md)
+- 📱 [IPTV App Configuration](./docs/IPTV-APP-CONFIGURATION.md)
+- ⚖️ [Legal Information](./data/README-LEGAL.md)
+
+---
+
 ## 🚀 Inicio Rápido
 
 ### ⚡ Inicio Instantáneo (Más Fácil)

@@ -50,6 +50,26 @@ The live demo includes **100% legal channels**:
 
 All demo content is legally available and properly licensed.
 
+## 📚 Documentation
+
+### English
+- 📘 [Complete Guide](./docs/COMPLETE-GUIDE.md)
+- 🚀 [Deployment Guide](./docs/DEPLOYMENT-EN.md)
+- 🔐 [GitHub Secrets Configuration](./docs/GITHUB-SECRETS-EN.md)
+- 📥 [Load M3U Lists](./docs/LOAD-M3U-LISTS.md)
+- 📱 [IPTV App Configuration](./docs/IPTV-APP-CONFIGURATION.md)
+- ⚖️ [Legal Information](./data/README-LEGAL.md)
+
+### Español
+- 📘 [Guía Completa](./docs/GUIA_COMPLETA.md)
+- 🚀 [Guía de Despliegue](./docs/DEPLOYMENT.md)
+- 🔐 [Configuración de Secrets](./docs/GITHUB-SECRETS.md)
+- 📥 [Cargar Listas M3U](./docs/CARGAR-LISTAS-M3U.md)
+- 📱 [Configuración IPTV](./docs/CONFIGURACION-IPTV.md)
+- 📺 [Guía TV](./docs/GUIA-TV.md)
+
+---
+
 ## 🚀 Quick Start
 
 ## 🛰️ Xtream Codes Backend Proxy

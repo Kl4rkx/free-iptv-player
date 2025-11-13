@@ -78,3 +78,89 @@
 .repo-list::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+
+/* Modal Responsive Styles */
+@media (max-width: 768px) {
+    .playlist-content {
+        padding: 1.5rem;
+        max-h-[85vh];
+    }
+    
+    .playlist-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Tabs en móvil - 4 pestañas en scroll horizontal */
+    .tabs-container {
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        position: relative;
+    }
+    
+    /* Indicador de scroll - gradiente a la derecha */
+    .tabs-container::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+        background: linear-gradient(to right, transparent, rgba(17, 24, 39, 0.8));
+        pointer-events: none;
+        border-radius: 0 0.75rem 0 0;
+    }
+    
+    .tabs-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tab-btn {
+        font-size: 0.8rem;
+        padding: 0.65rem 0.75rem;
+        min-width: 100px;
+        flex-shrink: 0;
+    }
+    
+    /* Reducir padding de inputs en móvil */
+    input[type="url"],
+    input[type="text"],
+    input[type="password"],
+    select,
+    textarea {
+        padding: 0.65rem 0.75rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Botones de carga más compactos */
+    .load-btn {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Small Mobile (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .playlist-content {
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+    
+    .playlist-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .tab-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.65rem;
+        min-width: 85px;
+    }
+    
+    /* Grid de 2 columnas para usuario/contraseña en Xtream */
+    .input-group.grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

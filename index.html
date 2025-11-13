@@ -79,7 +79,7 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+<body class="font-sans antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white overflow-x-hidden">
     <!-- Loading Screen -->
     <div id="loadingPage" class="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col justify-center items-center z-[10000] transition-all duration-500">
         <div class="loading-spinner w-12 h-12 border-4 border-gray-700 border-t-primary rounded-full"></div>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 lg:py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 lg:py-12 w-full overflow-x-hidden">
         <!-- Header -->
         <header class="mb-12 lg:mb-16">
             <!-- Top Bar with Language Switcher and Parental Control -->
@@ -221,7 +221,7 @@
          role="dialog" 
          aria-modal="true" 
          aria-label="Cargar lista de canales">
-        <div class="playlist-content bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
+        <div class="playlist-content bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 sm:p-8 p-4 w-full max-w-2xl sm:max-w-2xl max-w-[95vw] max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
             <div class="playlist-header flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold">📥 Cargar Lista de Canales</h2>
                 <button class="playlist-close bg-white/10 hover:bg-white/20 border-none text-white text-2xl cursor-pointer w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:rotate-90" 
@@ -232,26 +232,26 @@
             </div>
 
             <!-- Tabs -->
-            <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2" role="tablist">
-                <button class="tab-btn active flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+            <div class="tabs-container flex gap-3 mb-6 border-b-2 border-white/20 pb-2 overflow-x-auto" role="tablist">
+                <button class="tab-btn active flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap min-w-[120px]" 
                         onclick="switchTab(event, 'url')" 
                         role="tab" 
                         aria-selected="true">
                     🌐 Desde URL
                 </button>
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap min-w-[120px]" 
                         onclick="switchTab(event, 'file')" 
                         role="tab" 
                         aria-selected="false">
                     📁 Archivo Local
                 </button>
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap min-w-[120px]" 
                         onclick="switchTab(event, 'repo')" 
                         role="tab" 
                         aria-selected="false">
                     📂 Repositorio
                 </button>
-                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium" 
+                <button class="tab-btn flex-1 bg-white/10 hover:bg-white/20 border-none text-white px-5 py-3 cursor-pointer rounded-t-xl text-sm transition-all duration-300 font-medium whitespace-nowrap min-w-[120px]" 
                         onclick="switchTab(event, 'xtream')" 
                         role="tab" 
                         aria-selected="false">
